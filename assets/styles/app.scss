@@ -1,3 +1,21 @@
+$primary: #2B2BFF;
+$secondary: #A8BFF5;
+$success: #B7F5D8;
+$info: #8AFFF3;
+$danger: #FBA7B4;
+$warning: #FFF8D1;
+
+@import '../../vendor/twbs/bootstrap/scss/bootstrap';
+@import 'fonts';
+
+html, body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
-    background-color: skyblue;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom right,white, $info);
 }
