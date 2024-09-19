@@ -1,0 +1,16 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title %}Les catégories{% endblock %}
+
+{% block body %}
+    <section class="container mt-4">
+        <h1>les catégories</h1>
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Modifier</button>
+            <a href="{{ path('admin.categories.index') }}" class="btn btn-outline-primary">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

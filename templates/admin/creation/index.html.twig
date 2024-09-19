@@ -13,7 +13,7 @@
                 <th>Photo</th>
                 <th>Vendu</th>
                 <th>Prix</th>
-                <th>Actions</th>
+                <th style="width: 100px">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +31,7 @@
                     </td>
                     <td>{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
                     <td class="">
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-1">
                             <a href="{{ path('admin.creations.edit',{id: creation.id}) }}" class="text-decoration-none">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" color="primary"
                                      fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
