@@ -1,0 +1,17 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Ajouter une créations'%}
+
+{% block body %}
+    <section class="container mt-4">
+        <h1>Ajouter une création</h1>
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Créer</button>
+            <a href="{{ path('admin.creations.index') }}" class="btn btn-outline-primary">Cancel</a>
+        </div>
+        {{ form_end(form) }}
+    </section>
+
+{% endblock %}

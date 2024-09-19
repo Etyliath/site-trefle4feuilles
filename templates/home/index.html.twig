@@ -4,22 +4,21 @@
 
 {% block body %}
 
-    <div class="container">
-        <section class="mt-4">
-            <h1 class="text-center">Bienvenue sur le site
-                <br> <em>trèfle à 4 feuilles</em>
-                <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
-            </h1>
-            <div class="container">
-                {% include 'home/partials/carousel.html.twig' %}
-            </div>
-            <div class="d-flex flex-column align-items-center mt-4">
-                <button class="btn btn-primary">En voir plus</button>
-                <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aperiam assumenda commodi distinctio
-                    eaque enim explicabo facere hic laborum minima necessitatibus quasi quod recusandae reiciendis
-                    repudiandae sequi sint vitae voluptates?</p>
-            </div>
-        </section>
+    <section class="container mt-4">
+        <h1 class="text-center">Bienvenue sur le site
+            <br> <em>trèfle à 4 feuilles</em>
+            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
+        </h1>
+        <div class="container">
+            {% include 'home/partials/carousel.html.twig' %}
+        </div>
+        <div class="d-flex flex-column align-items-center mt-4">
+            <button class="btn btn-primary">En voir plus</button>
+            <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aperiam assumenda commodi
+                distinctio
+                eaque enim explicabo facere hic laborum minima necessitatibus quasi quod recusandae reiciendis
+                repudiandae sequi sint vitae voluptates?</p>
+        </div>
+    </section>
 
-    </div>
 {% endblock %}

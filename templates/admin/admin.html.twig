@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Administration{% endblock %}</title>
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    {% include 'admin/partials/header.html.twig' %}
+</header>
+<main>
+    {% include 'admin/partials/flash.html.twig' %}
+    {% block body %}{% endblock %}
+</main>
+
+</body>
+</html>
