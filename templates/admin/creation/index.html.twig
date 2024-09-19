@@ -11,6 +11,7 @@
             <tr>
                 <th>Nom</th>
                 <th>Photo</th>
+                <th>Catégorie</th>
                 <th>Vendu</th>
                 <th>Prix</th>
                 <th style="width: 100px">Actions</th>
@@ -21,6 +22,7 @@
                 <tr>
                     <td>{{ creation.name }}</td>
                     <td><img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" height="24" alt=""></td>
+                    <td>{{ creation.category.name }}</td>
                     <td>
                         {% if creation.sold %}
                             Oui

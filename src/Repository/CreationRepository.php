@@ -19,9 +19,9 @@ class CreationRepository extends ServiceEntityRepository
     public function findByLastCreations(): array
     {
         return $this->createQueryBuilder('c')
-            ->select('c')
+            ->select('c','cy')
             ->orderBy('c.createdAt', 'DESC')
-//            ->leftJoin('c.category', 'cy')
+            ->leftJoin('c.category', 'cy')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult()

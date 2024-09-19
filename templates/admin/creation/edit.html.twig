@@ -7,6 +7,7 @@
         <h1>Modifier une création</h1>
         {{ form_start(form) }}
         {{ form_row(form.name) }}
+        {{ form_row(form.category) }}
         {{ form_row(form.description) }}
         <img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" height="200" alt="">
         {{ form_row(form.thumbnailFile) }}
