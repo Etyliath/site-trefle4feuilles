@@ -19,3 +19,8 @@ body {
   flex-direction: column;
   background: linear-gradient(to bottom right,white, $info);
 }
+
+.carousel-item img{
+  height: 300px;
+  object-fit: fill;
+}

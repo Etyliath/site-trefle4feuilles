@@ -17,19 +17,23 @@
                     <a class="nav-link disabled" aria-disabled="true">Disabled</a>
                 </li>
             </ul>
-           <ul class="navbar-nav me-5 mb-2 mb-lg-0">
-               <li class="nav-item dropdown">
-                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                       Gestion
-                   </a>
-                   <ul class="dropdown-menu">
-                       <li><a class="dropdown-item" href="{{ path('admin.dashboard.index') }}">Administration</a></li>
-                       <li><a class="dropdown-item" href="#">login</a></li>
-                       <li><a class="dropdown-item" href="#">logout</a></li>
-                   </ul>
-               </li>
-           </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('admin.dashboard.index') }}">Administration</a>
+                    </li>
+                {% endif %}
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    </li>
+                {% endif %}
+            </ul>
+
         </div>
     </div>
 </nav>

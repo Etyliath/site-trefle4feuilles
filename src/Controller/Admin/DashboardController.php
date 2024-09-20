@@ -14,9 +14,8 @@ use Symfony\Component\Routing\Attribute\Route;
 class DashboardController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(EntityManagerInterface $entityManager, UserPasswordHasherInterface $hasher): Response
+    public function index(): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_ADMIN');
         return $this->render('admin/dashboard/index.html.twig');
     }
 

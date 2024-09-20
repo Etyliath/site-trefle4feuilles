@@ -4,9 +4,15 @@
 
 {% block body %}
     <section class="container mt-4">
-        <h1>Dashboard</h1>
-        <div class="container rounded-2 bg-white" style="height: 200px">
-            <p class="pt-4">Bienvenue sur le dashboard de gestion des créations de Sylvie</p>
+        <h1 class="text-center">Dashboard</h1>
+        <div class="container mt-3 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
+            <p class="pt-4 text-center">Bienvenue <strong>{{ app.user.username }}</strong> sur le dashboard de gestion
+                des créations de Sylvie</p>
+        </div>
+        <div class="mt-4">
+            <h2>Les actions</h2>
+            <a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Ajouter une catégorie</a>
+            <a href="{{ path('admin.creations.create') }}" class="btn btn-primary">Ajouter une création</a>
         </div>
     </section>
 {% endblock %}
