@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez moi{% endblock %}
+
+{% block body %}
+    <section class="container mb-3">
+        <div class="mt-4 d-flex flex-column align-items-center">
+            <h1>Me contacter</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A earum ex illo laboriosam magnam placeat
+                praesentium, reprehenderit repudiandae sequi sint tempora velit, veniam voluptatum? A ad dolor mollitia
+                soluta tempora.</p>
+        </div>
+        {{ form_start(form) }}
+        <h2>formulaire de contact</h2>
+        <div class="row">
+            <div class="col-sm">{{ form_row(form.name) }}</div>
+            <div class="col-sm">{{ form_row(form.email) }}</div>
+        </div>
+        {{ form_rest(form) }}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">envoyer</button>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
