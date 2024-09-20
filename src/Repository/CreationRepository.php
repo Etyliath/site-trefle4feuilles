@@ -16,13 +16,13 @@ class CreationRepository extends ServiceEntityRepository
         parent::__construct($registry, Creation::class);
     }
 
-    public function findByLastCreations(): array
+    public function findByLastCreations(int $limit): array
     {
         return $this->createQueryBuilder('c')
             ->select('c','cy')
             ->orderBy('c.createdAt', 'DESC')
             ->leftJoin('c.category', 'cy')
-            ->setMaxResults(3)
+            ->setMaxResults($limit)
             ->getQuery()
             ->getResult()
             ;

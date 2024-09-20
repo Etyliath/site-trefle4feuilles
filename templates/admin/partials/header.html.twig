@@ -1,5 +1,6 @@
-<nav class="navbar navbar-expand-lg bg-secondary bg-opacity-50">
+<nav class="navbar navbar-expand-lg bg-secondary bg-opacity-75">
     <div class="container-fluid">
+        <img src="{{ asset('images/logo.png') }}" alt="" height="40" class="me-3 my-1">
         <a class="navbar-brand" href="{{ path('admin.dashboard.index') }}">
            Administration
         </a>
@@ -10,6 +11,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
+                    <a class="nav-link {{ app.current_route == "admin.dashboard.index" ? 'active' : '' }}"
+                       href="{{ path('admin.dashboard.index') }}">Dashboard</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link {{ app.current_route starts with "admin.creations." ? 'active' : '' }}"
                        href="{{ path('admin.creations.index') }}">Creation</a>
                 </li>
@@ -17,23 +22,21 @@
                     <a class="nav-link {{ app.current_route starts with "admin.categories." ? 'active' : '' }}"
                        href="{{ path('admin.categories.index') }}">Catégories</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
-           <ul class="navbar-nav me-5 mb-2 mb-lg-0">
-               <li class="nav-item dropdown">
-                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                       Administration
-                   </a>
-                   <ul class="dropdown-menu">
-                       <li><a class="dropdown-item" href="{{ path('home') }}">Homepage</a></li>
-                       <li><a class="dropdown-item" href="#">login</a></li>
-                       <li><a class="dropdown-item" href="#">logout</a></li>
-                   </ul>
-               </li>
-           </ul>
+            <ul class="navbar-nav mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('home') }}">Homepage</a>
+                    </li>
+                {% if app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
     </div>
 </nav>
