@@ -25,8 +25,15 @@
                     </li>
                 {% endif %}
                 {% if app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <li class="nav-item dropdown me-5">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ app.user.username }}
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{{ path('profil.edit') }}">Profil</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                        </ul>
                     </li>
                 {% else %}
                     <li class="nav-item">
@@ -36,6 +43,7 @@
                         <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                     </li>
                 {% endif %}
+
             </ul>
 
         </div>
