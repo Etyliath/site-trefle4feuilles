@@ -17,9 +17,6 @@
                     <a class="nav-link {{ app.current_route == "contact" ? 'active' : '' }}"
                        href="{{ path('contact') }}">Contact</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>
             </ul>
             <ul class="navbar-nav mb-2 mb-lg-0">
                 {% if is_granted('ROLE_ADMIN') %}
@@ -32,6 +29,9 @@
                         <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                     </li>
                 {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                     </li>
