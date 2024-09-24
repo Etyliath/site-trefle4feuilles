@@ -2,7 +2,9 @@
     <div class="carousel-inner">
         {% for creation in creations %}
             <div class="carousel-item text-center active">
-                <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="" alt="...">
+                <a href="{{ path('creations.single', {id: creation.id}) }}">
+                    <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="" alt="...">
+                </a>
             </div>
         {% endfor %}
     </div>

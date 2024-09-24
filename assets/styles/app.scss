@@ -24,3 +24,11 @@ body {
   height: 300px;
   object-fit: fill;
 }
+
+.card-img-top{
+  max-height: 200px;
+  object-fit: contain;
+}
+.card img{
+  max-height: 400px;
+}
