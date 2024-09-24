@@ -5,13 +5,15 @@ namespace App\Repository;
 use App\Entity\Creation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Creation>
  */
 class CreationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, private PaginatorInterface $paginator)
     {
         parent::__construct($registry, Creation::class);
     }
@@ -19,37 +21,31 @@ class CreationRepository extends ServiceEntityRepository
     public function findByLastCreations(int $limit): array
     {
         return $this->createQueryBuilder('c')
-            ->select('c','cy')
+            ->select('c', 'cy')
             ->orderBy('c.createdAt', 'DESC')
             ->leftJoin('c.category', 'cy')
             ->setMaxResults($limit)
             ->getQuery()
-            ->getResult()
-            ;
+            ->getResult();
     }
 
-    //    /**
-    //     * @return Creation[] Returns an array of Creation objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function paginatedCreations(int $page,string|null $filter): PaginationInterface
+    {
+        if(!$filter){
+            return $this->paginator->paginate(
+                $this->createQueryBuilder('c'),
+                $page,
+                5
+            );
+        }else{
+            return $this->paginator->paginate(
+                $this->createQueryBuilder('c')
+                ->andWhere('c.category = :filter')
+                ->setParameter('filter', $filter),
+                $page,
+                5
+            );
+        }
 
-    //    public function findOneBySomeField($value): ?Creation
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    }
 }
