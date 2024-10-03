@@ -12,10 +12,16 @@
                 </p>
             </div>
         </div>
-        <div class="mt-5 p-4 bg-info d-flex align-items-center gap-2 justify-content-evenly">
-            <a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Ajouter une catégorie</a>
-            <a href="{{ path('admin.creations.create') }}" class="btn btn-primary">Ajouter une création</a>
-            <a href="{{ path('profil.listUsers') }}" class="btn btn-primary">Gérer les profils</a>
+        <div class="mt-5 p-4 bg-info">
+            <div class="d-flex flex-column ">
+                <h4 class="text-center my-2">Gestion des créations et des profils</h4>
+                <div class="d-flex justify-content-evenly align-items-center mt-2 gap-2">
+                    <a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Ajouter une catégorie</a>
+                    <a href="{{ path('admin.creations.create') }}" class="btn btn-primary">Ajouter une création</a>
+                    <a href="{{ path('profil.listUsers') }}" class="btn btn-primary">Les profils</a>
+                </div>
+            </div>
+
         </div>
     </section>
     <section class="container mt-4" data-controller="commentModal">
@@ -56,7 +62,7 @@
                                 <!-- Button trigger modal Show -->
                                 <button type="button" class="open-modal-show border-0 bg-white"
                                         data-id="{{ comment.id }}"
-                                        data-created_at="{{ comment.createdAt|date("d M Y H:m", "Europe/Paris")}}"
+                                        data-created_at="{{ comment.createdAt|date("d M Y H:m", "Europe/Paris") }}"
                                         data-username="{{ comment.username }}"
                                         data-email="{{ comment.email }}"
                                         data-creation="{{ comment.creation.name }}"
