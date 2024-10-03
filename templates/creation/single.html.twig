@@ -7,7 +7,7 @@
         <h3 class="text-center">Détail de la creation</h3>
         <div class="card mx-auto mb-3" style="max-width: 540px">
             <div class="row g-2">
-                <div class="col-md-6">
+                <div class="col-12 col-md-6 text-center">
                     <img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" class="img-fluid rounded-start"
                          alt="...">
                 </div>
@@ -33,12 +33,14 @@
         </div>
     </section>
     <section class="container d-flex flex-column align-items-center my-4">
-        <a href="{{ path('comment.new', {id: creation.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
+        {% if app.user %}
+            <a href="{{ path('comment.new', {id: creation.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
+        {% endif %}
         <div class="container border bg-white border-1 my-4 rounded rounded-2">
             {% for comment in comments %}
                 <div class=" mb-4">
-                    <h6 class="fw-bold mt-2">{{ comment.username }}</h6>
-                    <p class="">{{ comment.comment|nl2br }}</p>
+                    <h6 class="fw-bold mt-2">{{ comment.user.username }}</h6>
+                    <p class="">{{ comment.message|nl2br }}</p>
                 </div>
             {% endfor %}
         </div>

@@ -6,26 +6,27 @@
     <section class="container mt-4">
         <div class="row justify-content-center justify-content-md-between align-items-center">
             <h1 class="ms-5 col-1 col-md-3 text-center">Dashboard</h1>
-            <div class="mt-3 col-md-6 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
+            <div class="mt-3 mb-2 col-md-6 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
                 <p class="mt-3 mx-1 text-center">Bienvenue <strong>{{ app.user.username }}</strong>
                     gestion des créations de Sylvie
                 </p>
             </div>
         </div>
-        <div class="mt-5 p-4 bg-info">
+        <div class="mt-3  px-2 pb-3 bg-info rounded-4 shadow">
             <div class="d-flex flex-column ">
-                <h4 class="text-center my-2">Gestion des créations et des profils</h4>
+                <h4 class="text-center mt-2">Gestion des créations et des profils</h4>
                 <div class="d-flex justify-content-evenly align-items-center mt-2 gap-2">
-                    <a href="{{ path('admin.categories.create') }}" class="btn btn-primary">Ajouter une catégorie</a>
-                    <a href="{{ path('admin.creations.create') }}" class="btn btn-primary">Ajouter une création</a>
-                    <a href="{{ path('profil.listUsers') }}" class="btn btn-primary">Les profils</a>
+                    <a href="{{ path('admin.categories.create') }}" class="btn btn-outline-primary shadow">Ajouter une catégorie</a>
+                    <a href="{{ path('admin.creations.create') }}" class="btn btn-outline-primary shadow">Ajouter une création</a>
+                    <a href="{{ path('profil.listUsers') }}" class="btn btn-outline-danger shadow">Profil utilisateur</a>
                 </div>
             </div>
 
         </div>
     </section>
     <section class="container mt-4" data-controller="commentModal">
-        <h4 class="text-center mb-3">Liste des post de commentaires</h4>
+        <a href="{{ path('admin.comments.index') }}" class="btn btn-outline-primary shadow mb-3">Voir tous les commentaires</a>
+        <h4 class="text-center mb-3">Liste des commentaires à valider</h4>
         {% include 'admin/comment/partials/moadalShow.html.twig' %}
         <div class="table-responsive">
             <table class="table align-middle">
@@ -41,7 +42,7 @@
                 {% for comment in comments %}
                     <tr>
                         <td>{{ comment.createdAt|date("d M Y", "Europe/Paris") }}</td>
-                        <td>{{ comment.username }}</td>
+                        <td>{{ comment.user.username }}</td>
                         <td class="text-center">
                             {% if comment.validated %}
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -63,10 +64,10 @@
                                 <button type="button" class="open-modal-show border-0 bg-white"
                                         data-id="{{ comment.id }}"
                                         data-created_at="{{ comment.createdAt|date("d M Y H:m", "Europe/Paris") }}"
-                                        data-username="{{ comment.username }}"
-                                        data-email="{{ comment.email }}"
+                                        data-username="{{ comment.user.username }}"
+                                        data-email="{{ comment.user.email }}"
                                         data-creation="{{ comment.creation.name }}"
-                                        data-comment="{{ comment.comment|nl2br }}"
+                                        data-message="{{ comment.message|nl2br }}"
                                         data-validated="{{ comment.validated }}"
                                         data-bs-toggle="modal" data-bs-target="#showModal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

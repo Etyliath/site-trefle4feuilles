@@ -35,7 +35,7 @@ class CreationRepository extends ServiceEntityRepository
             return $this->paginator->paginate(
                 $this->createQueryBuilder('c'),
                 $page,
-                5
+                6
             );
         }else{
             return $this->paginator->paginate(
@@ -43,7 +43,7 @@ class CreationRepository extends ServiceEntityRepository
                 ->andWhere('c.category = :filter')
                 ->setParameter('filter', $filter),
                 $page,
-                5
+                6
             );
         }
 

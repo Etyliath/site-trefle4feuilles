@@ -26,4 +26,13 @@ class CommentRepository extends ServiceEntityRepository
             5,
         );
     }
+
+    public function paginatedCommentNotValidate(int $page): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('c')->andWhere('c.validated = false'),
+            $page,
+            5
+        );
+    }
 }

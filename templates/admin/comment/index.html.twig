@@ -20,8 +20,8 @@
                 <tbody>
                 {% for comment in comments %}
                     <tr>
-                        <td>{{ comment.username }}</td>
-                        <td>{{ comment.email }}</td>
+                        <td>{{ comment.user.username }}</td>
+                        <td>{{ comment.user.email }}</td>
                         <td>{{ comment.creation.name }}</td>
                         <td class="text-center">
                             {% if comment.validated %}
@@ -43,10 +43,10 @@
                                 <!-- Button trigger modal Show -->
                                 <button type="button" class="open-modal-show border-0 bg-white"
                                         data-id="{{ comment.id }}"
-                                        data-username="{{ comment.username }}"
-                                        data-email="{{ comment.email }}"
+                                        data-username="{{ comment.user.username }}"
+                                        data-email="{{ comment.user.email}}"
                                         data-creation="{{ comment.creation.name }}"
-                                        data-comment="{{ comment.comment|nl2br }}"
+                                        data-message="{{ comment.message|nl2br }}"
                                         data-validated="{{ comment.validated }}"
                                         data-bs-toggle="modal" data-bs-target="#showModal">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"

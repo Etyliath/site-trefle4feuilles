@@ -22,6 +22,7 @@ class CommentController extends AbstractController
         EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
+        $comment->setUser($this->getUser());
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

@@ -27,7 +27,7 @@ export default class extends Controller {
                 pUsername.innerHTML = "<strong>Nom: </strong>" + button.dataset.username
                 pEmail.innerHTML = "<strong>Mail: </strong>" + button.dataset.email
                 pCreation.innerHTML = "<strong>Nom de la création: </strong>" + button.dataset.creation
-                pComment.innerHTML = "<strong>Commentaire: </strong>" + button.dataset.comment
+                pComment.innerHTML = "<strong>Commentaire: </strong>" + button.dataset.message
                 modalContentModal.appendChild(pDate)
                 modalContentModal.appendChild(pUsername)
                 modalContentModal.appendChild(pEmail)
