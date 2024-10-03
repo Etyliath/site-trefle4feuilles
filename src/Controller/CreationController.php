@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Creation;
 use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use App\Repository\CreationRepository;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -35,10 +36,13 @@ class CreationController extends AbstractController
         ]);
     }
     #[Route('/{id}', name: 'single', methods: ['GET'])]
-    public function single(Creation $creation): Response
+    public function single(Creation $creation, CommentRepository $commentRepository): Response
     {
+        $comments = $commentRepository->findBy(['creation' => $creation, 'validated' => true]);
+//        dd($comments);
         return $this->render('creation/single.html.twig', [
             'creation' => $creation,
+            'comments' => $comments,
         ]);
     }
 }

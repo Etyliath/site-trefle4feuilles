@@ -3,8 +3,8 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="container mt-4">
-        <form method="post">
+    <div class="container mt-4 d-flex flex-column justify-content-center" style="max-width: 400px;">
+        <form method="post" class="d-flex flex-column justify-content-center ">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -33,9 +33,12 @@
             </div>
 
 
-            <button class="btn btn-lg btn-primary" type="submit">
-                Sign in
+            <button class="btn btn-primary mx-auto" type="submit">
+                Se Connecter
             </button>
         </form>
+        <div class="border-top border-primary border-1 mt-3 mb-3 text-center">
+            <a href="{{ path('app_register') }}" class="btn btn-primary my-2 align-self-center">S'inscrire</a>
+        </div>
     </div>
 {% endblock %}

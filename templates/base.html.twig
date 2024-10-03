@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="{{ asset('images/favicon.ico') }}">
-        {% block stylesheets %}
-        {% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="{{ asset('images/favicon.ico') }}">
+    {% block stylesheets %}
+    {% endblock %}
 
-        {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
-        {% endblock %}
-    </head>
-    <body>
-    <header>
-        {% include 'partials/header.html.twig' %}
-    </header>
-    <main>
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+<header>
+    {% include 'partials/header.html.twig' %}
+</header>
+<main>
+    <div class="container">
         {% include 'partials/flash.html.twig' %}
-        {% block body %}{% endblock %}
-    </main>
-    <footer class="mt-auto bg-warning">
-        {% include 'partials/footer.html.twig' %}
-    </footer>
-    </body>
+    </div>
+    {% block body %}{% endblock %}
+</main>
+<footer class="mt-auto bg-warning">
+    {% include 'partials/footer.html.twig' %}
+</footer>
+</body>
 </html>

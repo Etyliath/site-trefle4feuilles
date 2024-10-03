@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter un commentaire{% endblock %}
+
+{% block body %}
+    <section class="container">
+        {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <a href="{{ path('creations.single',{id: creation.id}) }}" class="btn btn-outline-primary">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
