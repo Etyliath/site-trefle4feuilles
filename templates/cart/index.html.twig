@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    <section class="container mt-3">
+        <h1 class="text-center">Panier</h1>
+        {% if app.session.get('cart')|length != 0 %}
+            <div class="row gap-2 justify-content-evenly">
+                <div class="col-12 col-md-6 bg-secondary bg-opacity-25 rounded-3 p-3">
+                    {% set total = null %}
+                    {% for item in cart %}
+                        {% set total = total + item.creation.price %}
+                        <div class="row">
+                            <div class="col-7">{{ item.creation.name }}</div>
+                            <div class="col-3">{{ (item.creation.price/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</div>
+                            <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="col-1 mb-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-trash" viewBox="0 0 16 16">
+                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
+                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    {% endfor %}
+                    {% if app.session.get('cart')|length != 0 %}
+                        <a href="{{ path('cart.clear') }}" class="offset-8 offset-md-9 link-offset-1">Vider le
+                            panier</a>
+                    {% endif %}
+                </div>
+                <div class="col-12 col-md-3 p-3 bg-light rounded-3">
+                    <div class="row ">
+                        <div class="col">Total :</div>
+                        <div class="col">
+                            <strong>{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</strong>
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="col">Articles:</div>
+                        <div class="col"><strong>{{ app.session.get('cart')|length }}</strong></div>
+
+                    </div>
+                    <div class="text-end">
+                        <a href="#" class="btn btn-primary btn-sm">Commander</a>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a href="{{ path('creations.index') }}" class="link-offset-1">Retout aux créations</a>
+                </div>
+            </div>
+        {% else %}
+            <p class="text-center fs-4">Panier vide !!!</p>
+        {% endif %}
+    </section>
+{% endblock %}
