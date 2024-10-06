@@ -6,8 +6,6 @@ use App\Entity\Creation;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\CreationRepository;
-use Knp\Component\Pager\Pagination\PaginationInterface;
-use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,20 +19,22 @@ class CreationController extends AbstractController
         CreationRepository $creationRepository,
         Request $request, CategoryRepository $categoryRepository): Response
     {
-//
         $page = $request->query->getInt('page', 1);
-        $creations = $creationRepository->paginatedCreations($page, $request->query->get('filter'));
-
-        $filter = (int)$request->query->get('filter');
+        $filterCategory = $request->query->get('category');
+        $filterName = $request->query->get('name');
+        $creations = $creationRepository->paginatedCreationsByFilters($page,  $filterName, $filterCategory);
+        $filter = (int)$filterCategory;
         $titleCategory = $categoryRepository->find($filter);
-//       dd($titleCategory);
         $categories = $categoryRepository->findAll();
         return $this->render('creation/index.html.twig', [
             'creations' => $creations,
             'categories' => $categories,
             'titleCategory' => $titleCategory,
+            'category' => $filterCategory,
+            'name' => $filterName,
         ]);
     }
+
     #[Route('/{id}', name: 'single', methods: ['GET'])]
     public function single(Creation $creation, CommentRepository $commentRepository): Response
     {

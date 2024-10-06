@@ -1,0 +1,15 @@
+<div class="form-group mx-auto w-75 mb-2">
+    <form action="{{ path( url , {filter: 'category'}) }}" method="get"
+          class="d-flex flex-column flex-md-row align-items-center gap-2">
+        <label for="category" class="text-nowrap">Par catégorie</label>
+        <select name="category" id="category" class="form-select">
+            <option value="" {{ category is empty ? 'selected' : '' }}>Toutes les catégories</option>
+            {% for cat in categories %}
+                <option value="{{ cat.id }}" {{ category == cat.id ? 'selected' :'' }}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+        <label for="name" class="text-nowrap">Par nom</label>
+        <input type="text" id="name" name="name" value="{{ name }}">
+        <button class="btn btn-primary" type="submit">Recherche</button>
+    </form>
+</div>

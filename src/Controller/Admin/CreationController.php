@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Creation;
 use App\Form\CreationType;
+use App\Repository\CategoryRepository;
 use App\Repository\CreationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,11 +19,23 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CreationController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(CreationRepository $repository): Response
+    public function index(
+        CreationRepository $creationRepository,
+        Request $request, CategoryRepository $categoryRepository): Response
     {
-        $creations = $repository->findAll();
-        return $this->render('admin/creation/index.html.twig',[
+        $page = $request->query->getInt('page', 1);
+        $filterCategory = $request->query->get('category');
+        $filterName = $request->query->get('name');
+        $creations = $creationRepository->paginatedCreationsByFilters($page,  $filterName, $filterCategory);
+        $filter = (int)$filterCategory;
+        $titleCategory = $categoryRepository->find($filter);
+        $categories = $categoryRepository->findAll();
+        return $this->render('admin/creation/index.html.twig', [
             'creations' => $creations,
+            'categories' => $categories,
+            'titleCategory' => $titleCategory,
+            'category' => $filterCategory,
+            'name' => $filterName,
         ]);
     }
 
@@ -64,6 +77,21 @@ class CreationController extends AbstractController
     {
         $entityManager->remove($creation);
         $entityManager->flush();
+        return $this->redirectToRoute('admin.creations.index');
+    }
+
+    #[Route('/toggleSold/{id}', name: 'toggleSold', requirements: ['id'=> Requirement::DIGITS], methods: ['GET'])]
+    public function toggleSold(Creation $creation, EntityManagerInterface $entityManager): Response
+    {
+        if ($creation->isSold()) {
+            $creation->setSold(false);
+            $entityManager->persist($creation);
+            $entityManager->flush();
+        }else{
+            $creation->setSold(true);
+            $entityManager->persist($creation);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('admin.creations.index');
     }
 }

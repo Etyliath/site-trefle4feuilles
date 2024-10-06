@@ -29,23 +29,24 @@ class CreationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function paginatedCreations(int $page,string|null $filter): PaginationInterface
+    public function paginatedCreationsByFilters(int $page, string|null $name, string|null $category): PaginationInterface
     {
-        if(!$filter){
-            return $this->paginator->paginate(
-                $this->createQueryBuilder('c'),
-                $page,
-                6
-            );
-        }else{
-            return $this->paginator->paginate(
-                $this->createQueryBuilder('c')
-                ->andWhere('c.category = :filter')
-                ->setParameter('filter', $filter),
-                $page,
-                6
-            );
-        }
+        $qb = $this->createQueryBuilder('c');
 
+        if ($category) {
+            $qb->andWhere('c.category = :category')
+                ->setParameter('category', $category);
+        }
+        if ($name) {
+            $qb->andWhere('c.name LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+        $qb->getQuery();
+
+        return $this->paginator->paginate(
+            $qb,
+            $page,
+            6
+        );
     }
 }

@@ -22,7 +22,6 @@ class CartController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(SessionInterface $session, EntityManagerInterface $em): Response
     {
-//        $cart = $session->get('cart');
         $cart = $this->cartService->getCart();
         return $this->render('cart/index.html.twig',[
             'cart' => $cart
@@ -32,7 +31,6 @@ class CartController extends AbstractController
     #[Route('/add/{id}', name: 'add', methods: ['GET', 'POST'])]
     public  function add(SessionInterface $session, Creation $creation, EntityManagerInterface $em): Response
     {
-//        $card = $session->get('cart',[]);
         $cart = $this->cartService->getCart();
         $id = $creation->getId();
         if(!isset($card[$id])){
@@ -43,7 +41,7 @@ class CartController extends AbstractController
         }else{
             $this->addFlash('danger', 'la création est déjà dans le panier');
         }
-        return $this->redirectToRoute('cart.index');
+        return $this->redirectToRoute('creations.index');
     }
 
     #[Route('/remove/{id}', name: 'remove', methods: ['GET', 'POST'])]
@@ -54,5 +52,13 @@ class CartController extends AbstractController
         $em->flush();
         $this->cartService->removeFromCart($creation);
         return $this->redirectToRoute('cart.index');
+    }
+
+    #[Route('/clear', name: 'clear', methods: ['GET'])]
+    public function clearCart(): Response
+    {
+        $this->cartService->releaseReservedCreation();
+        return $this->redirectToRoute('cart.index');
+
     }
 }
