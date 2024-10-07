@@ -11,10 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/comment', name: 'comment.')]
 class CommentController extends AbstractController
 {
+    #[isGranted('ROLE_USER')]
     #[Route('/{id}', name: 'new', methods: ['POST','GET'])]
     public function new (
         Request $request,

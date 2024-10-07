@@ -23,7 +23,8 @@
                                 {% if creation.sold %}
                                     <div class="fst-italic fs-4 fw-bolder text-danger">Vendu</div>
                                 {% else %}
-                                    <a href="{{ path('cart.add', {id: creation.id}) }}" class="ms-auto btn btn-primary">Ajouter au panier</a>
+                                    <a href="{{ path('cart.add', {id: creation.id}) }}" class="ms-auto btn btn-primary">Ajouter
+                                        au panier</a>
                                 {% endif %}
                             </small>
                         </p>
@@ -33,9 +34,7 @@
         </div>
     </section>
     <section class="container d-flex flex-column align-items-center my-4">
-        {% if app.user %}
-            <a href="{{ path('comment.new', {id: creation.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
-        {% endif %}
+        <a href="{{ path('comment.new', {id: creation.id}) }}" class="btn btn-primary">Ajouter un commentaire</a>
         <div class="container border bg-white border-1 my-4 rounded rounded-2">
             {% for comment in comments %}
                 <div class=" mb-4">
