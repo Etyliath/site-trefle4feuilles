@@ -3,47 +3,56 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-    <div class="container mt-4 d-flex flex-column justify-content-center" style="max-width: 400px;">
-        <form method="post" class="d-flex flex-column justify-content-center ">
-            {% if error %}
-                <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-            {% endif %}
+    <div class="d-lg-flex gap-3 justify-content-center">
+        <div class="d-flex flex-column justify-content-center" >
+            <form method="post" class="d-flex flex-column justify-content-center ">
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
 
-            {% if app.user %}
-                <div class="mb-3">
-                    You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
+                {% if app.user %}
+                    <div class="mb-3">
+                        You are logged in as {{ app.user.userIdentifier }}, <a
+                                href="{{ path('app_logout') }}">Logout</a>
+                    </div>
+                {% endif %}
+
+                <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+                <label for="username">Username</label>
+                <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
+                       autocomplete="username" required autofocus>
+                <label for="password">Password</label>
+                <input type="password" name="_password" id="password" class="form-control"
+                       autocomplete="current-password"
+                       required>
+
+                <input type="hidden" name="_csrf_token"
+                       value="{{ csrf_token('authenticate') }}"
+                >
+
+                <div class="checkbox mb-3">
+                    <input type="checkbox" name="_remember_me" id="_remember_me">
+                    <label for="_remember_me">Remember me</label>
                 </div>
-            {% endif %}
 
-            <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-            <label for="username">Username</label>
-            <input type="text" value="{{ last_username }}" name="_username" id="username" class="form-control"
-                   autocomplete="username" required autofocus>
-            <label for="password">Password</label>
-            <input type="password" name="_password" id="password" class="form-control" autocomplete="current-password"
-                   required>
 
-            <input type="hidden" name="_csrf_token"
-                   value="{{ csrf_token('authenticate') }}"
-            >
-
-            <div class="checkbox mb-3">
-                <input type="checkbox" name="_remember_me" id="_remember_me">
-                <label for="_remember_me">Remember me</label>
+                <button class="btn btn-primary mx-auto" type="submit">
+                    Se Connecter
+                </button>
+            </form>
+            <div class="d-flex align-items-center my-3">
+                <hr class="w-100 m-0">
+                <span class="text-body-emphasis text-nowrap fw-medium mx-4">Ou</span>
+                <hr class="w-100 m-0">
             </div>
-
-
-            <button class="btn btn-primary mx-auto" type="submit">
-                Se Connecter
-            </button>
-        </form>
-        <div class="d-flex align-items-center my-4">
-            <hr class="w-100 m-0">
-            <span class="text-body-emphasis text-nowrap fw-medium mx-4">Ou</span>
-            <hr class="w-100 m-0">
+            <div class="text-center">
+                <a href="{{ path('app_register') }}" class="btn btn-primary align-self-center">Créer un compte</a>
+            </div>
         </div>
-        <div class="text-center">
-            <a href="{{ path('app_register') }}" class="btn btn-primary my-2 align-self-center">Créer un compte</a>
+        <div class="d-none d-lg-block py-4 " >
+            <div class="" >
+                <img src="{{ asset('images/image1.jpg') }}" class="rounded-5"  alt="des chats" height="400" width="400">
+            </div>
         </div>
     </div>
 {% endblock %}
