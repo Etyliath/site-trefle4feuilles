@@ -1,7 +1,7 @@
 <div id="carouselExample" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         {% for creation in creations %}
-            <div class="carousel-item text-center active">
+            <div class="carousel-item text-center {{ loop.first ? 'active' }}">
                 <a href="{{ path('creations.single', {id: creation.id}) }}">
                     <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="" alt="...">
                 </a>

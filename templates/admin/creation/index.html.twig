@@ -3,7 +3,7 @@
 {% block title 'Les créations de Sylvie' %}
 
 {% block body %}
-    <section class="container mt-4">
+    <section class="container mt-4" >
         <h1>Les créations</h1>
         <a href="{{ path('admin.creations.create') }}" class="btn btn-primary mb-3">Ajouter une création</a>
         {% include 'partials/search.html.twig' with {'url':'admin.creations.index'} %}

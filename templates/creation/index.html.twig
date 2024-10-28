@@ -5,19 +5,24 @@
 {% block body %}
     <section class="my-4">
         {% include 'partials/search.html.twig' with {'url':'creations.index'} %}
-        <div class="row gap-2 mx-2 justify-content-center">
+        <div class="row gap-3 mx-2 justify-content-center">
             {% for creation in creations %}
                 <a href="{{ path('creations.single', {id: creation.id}) }}"
                    class="text-decoration-none col-12 col-md-4 col-lg-3">
-                    <div class="card mb-2">
+                    <div class="card d-flex flex-column h-100">
                         <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="card-img-top"
                              alt="...">
-                        <div class="card-body d-flex flex-column">
+                        <div class="card-body d-flex flex-column d-flex-grow-1 justify-content-end">
                             <h5 class="card-title ">{{ creation.name }}</h5>
                             <p class="card-text">
                                 <strong>{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</strong>
                             </p>
                         </div>
+                        {% if creation.sold %}
+                            <div class="card-footer bg-warning">
+                                <p class="text-center m-0"><em>Vendu</em></p>
+                            </div>
+                        {% endif %}
                     </div>
                 </a>
             {% endfor %}

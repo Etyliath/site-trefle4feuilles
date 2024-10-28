@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Creation;
+use App\Entity\Order;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,18 +23,20 @@ class CartController extends AbstractController
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(SessionInterface $session, EntityManagerInterface $em): Response
     {
-        $cart = $this->cartService->getCart();
+        $cart = $this->cartService->getTotal();
+        $order = $em->getRepository(Order::class)->findByUserAndStatus( $this->getUser(), 'pending');
         return $this->render('cart/index.html.twig',[
-            'cart' => $cart
+            'cart' => $cart,
+            'order' => $order,
         ]);
     }
 
-    #[Route('/add/{id}', name: 'add', methods: ['GET', 'POST'])]
-    public  function add(SessionInterface $session, Creation $creation, EntityManagerInterface $em): Response
+    #[Route('/add/{id}', name: 'add', methods: ['GET'])]
+    public  function add(Creation $creation, EntityManagerInterface $em): Response
     {
         $cart = $this->cartService->getCart();
         $id = $creation->getId();
-        if(!isset($card[$id])){
+        if(!isset($cart[$id])){
             $this->cartService->addToCart($creation);
             $creation->setSold(true);
             $em->persist($creation);
@@ -45,7 +48,7 @@ class CartController extends AbstractController
     }
 
     #[Route('/remove/{id}', name: 'remove', methods: ['GET', 'POST'])]
-    public function remove(SessionInterface $session, Creation $creation, EntityManagerInterface $em): Response
+    public function remove(Creation $creation, EntityManagerInterface $em): Response
     {
         $creation->setSold(false);
         $em->persist($creation);
