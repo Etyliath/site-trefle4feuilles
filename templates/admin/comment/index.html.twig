@@ -43,6 +43,7 @@
                                 <!-- Button trigger modal Show -->
                                 <button type="button" class="open-modal-show border-0 bg-white"
                                         data-id="{{ comment.id }}"
+                                        data-created_at="{{ comment.createdAt|date("d M Y H:m", "Europe/Paris") }}"
                                         data-username="{{ comment.user.username }}"
                                         data-email="{{ comment.user.email}}"
                                         data-creation="{{ comment.creation.name }}"

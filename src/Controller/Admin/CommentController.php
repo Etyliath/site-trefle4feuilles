@@ -25,7 +25,7 @@ class CommentController extends AbstractController
             'comments' => $comments,
         ]);
     }
-    #[Route('/{id}/validate', name: 'validate',requirements: ['id'=> Requirement::DIGITS] , methods: ['POST'])]
+    #[Route('/{id}/validate', name: 'validate' , methods: ['POST'])]
     public  function validated(string $id, EntityManagerInterface $em): Response
     {
         $comment = $em->getRepository(Comment::class)->find($id);

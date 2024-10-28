@@ -1,5 +1,9 @@
 {% for label, messages in app.flashes %}
-    <div class="my-2 alert alert-{{ label }}">
-        {{ messages | join('. ') }}
+    <div class="my-1 alert alert-{{ label }} mx-auto col-md-8 row align-items-center justify-content-between">
+       <div class="col col-md-8">{{ messages | join('. ') }}</div>
+        <button
+                type="button" class="btn-close col" aria-label="Close"
+                onclick="this.parentElement.parentElement.remove()"
+        ></button>
     </div>
 {% endfor %}

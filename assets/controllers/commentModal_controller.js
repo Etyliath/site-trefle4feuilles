@@ -63,7 +63,9 @@ export default class extends Controller {
         const buttonValidate = document.querySelector('#modalValidateBtn')
         buttonValidate.addEventListener('click', () => {
             if (currentId !== '') {
-                fetch(`/admin/comments/${currentId}/validate`, {
+                let url = buttonValidate.dataset.url.replace('__ID__', currentId)
+                console.log(url)
+                fetch( url , {
                     method: 'POST',
                 }).then(r => {
                     if (r.status === 200) {

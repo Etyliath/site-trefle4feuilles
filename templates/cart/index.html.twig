@@ -4,53 +4,73 @@
 
 {% block body %}
     <section class="container mt-3">
-        <h1 class="text-center">Panier</h1>
+        <h1 class="text-center my-3">Votre panier</h1>
         {% if app.session.get('cart')|length != 0 %}
-            <div class="row gap-2 justify-content-evenly">
-                <div class="col-12 col-md-6 bg-secondary bg-opacity-25 rounded-3 p-3">
-                    {% set total = null %}
-                    {% for item in cart %}
+            <div class="d-flex flex-column gap-2 col-md-8 mx-auto">
+                {% if order %}
+                    <p class="text-center fst-italic">Une commande est cours ce panier sera ajouter à la commande <strong>{{ order.id }}</strong></p>
+                {% endif %}
+                <div class="table-responsive rounded-3">
+                    <table class="table align-middle">
+                        <tbody>
+                        {% set total = null %}
+                        {% for item in cart %}
                         {% set total = total + item.creation.price %}
-                        <div class="row">
-                            <div class="col-7">{{ item.creation.name }}</div>
-                            <div class="col-3">{{ (item.creation.price/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</div>
-                            <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="col-1 mb-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                     class="bi bi-trash" viewBox="0 0 16 16">
-                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-                                    <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    {% endfor %}
-                    {% if app.session.get('cart')|length != 0 %}
-                        <a href="{{ path('cart.clear') }}" class="offset-8 offset-md-9 link-offset-1">Vider le
-                            panier</a>
-                    {% endif %}
-                </div>
-                <div class="col-12 col-md-3 p-3 bg-light rounded-3">
-                    <div class="row ">
-                        <div class="col">Total :</div>
-                        <div class="col">
-                            <strong>{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</strong>
-                        </div>
+                        <tr>
+                            <td>
+                                <img class="col-2" src="{{ vich_uploader_asset(item.creation, 'thumbnailFile') }}"
+                                     alt="">
+                            </td>
+                            <td>
+                                {{ item.creation.name }}
+                            </td>
+                            <td>
+                                {{ (item.creation.price/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}
+                            </td>
+                            <td class="text-center px-4">
+                                <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="text-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+                        <tfoot>
+                        <tr>
+                            <td colspan="2" class="">Nombre d'articles :
+                                <strong>{{ app.session.get('cart')|length }}</strong>
+                            </td>
+                            <td class="text-end">Total :</td>
+                            <td class="">
+                                <strong>{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</strong>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="d-flex gap-5 mt-2 mb-1 justify-content-between">
+                        <a href="{{ path('creations.index') }}" class="btn btn-sm btn btn-secondary">Retout aux
+                            créations</a>
+                        <a href="{{ path('cart.clear') }}" class="btn btn-sm btn btn-danger">Vider le panier</a>
                     </div>
+                </div>
+                {% if order %}
+                    <a href="{{ path('orders.create') }}" data-turbo="false"
+                       class="btn btn-primary btn-sm ms-auto mb-2">
+                        Ajouter à la commande
+                    </a>
+                {% else %}
+                    <a href="{{ path('orders.create') }}" data-turbo="false"
+                       class="btn btn-primary btn-sm ms-auto mb-2">
+                        Passer commande
+                    </a>
+                {% endif %}
 
-                    <div class="row mb-2">
-                        <div class="col">Articles:</div>
-                        <div class="col"><strong>{{ app.session.get('cart')|length }}</strong></div>
-
-                    </div>
-                    <div class="text-end">
-                        <a href="#" class="btn btn-primary btn-sm">Commander</a>
-                    </div>
-                </div>
-                <div class="text-end">
-                    <a href="{{ path('creations.index') }}" class="link-offset-1">Retout aux créations</a>
-                </div>
             </div>
         {% else %}
-            <p class="text-center fs-4">Panier vide !!!</p>
+            <p class="text-center fs-4 my-auto">Votre panier est vide !!!</p>
         {% endif %}
     </section>
 {% endblock %}

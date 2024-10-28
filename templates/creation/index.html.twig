@@ -18,6 +18,11 @@
                                 <strong>{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</strong>
                             </p>
                         </div>
+                        {% if creation.sold %}
+                            <div class="card-footer bg-warning">
+                                <p class="text-center m-0"><em>Vendu</em></p>
+                            </div>
+                        {% endif %}
                     </div>
                 </a>
             {% endfor %}
