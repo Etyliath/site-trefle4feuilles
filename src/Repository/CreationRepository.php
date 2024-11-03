@@ -29,6 +29,18 @@ class CreationRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function pagination(int $page): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->createQueryBuilder('c')
+            ->select('c', 'cy')
+            ->orderBy('c.createdAt', 'DESC')
+            ->leftJoin('c.category', 'cy')
+            ->getQuery(),
+            $page,
+            6
+        );
+    }
     public function paginatedCreationsByFilters(int $page, string|null $name, string|null $category): PaginationInterface
     {
         $qb = $this->createQueryBuilder('c');

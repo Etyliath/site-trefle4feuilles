@@ -1,32 +1,23 @@
 <nav class="navbar navbar-expand-lg bg-secondary bg-opacity-75">
     <div class="container-fluid">
         <img src="{{ asset('images/logo.png') }}" alt="" height="40" class="me-3 my-1">
-        <a class="navbar-brand" href="{{ path('admin.dashboard.index') }}">
-           Administration
-        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {{ app.current_route == "admin.dashboard.index" ? 'active' : '' }}"
                        href="{{ path('admin.dashboard.index') }}">Dashboard</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ app.current_route starts with "admin.creations." ? 'active' : '' }}"
-                       href="{{ path('admin.creations.index') }}">Creations</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link {{ app.current_route starts with "admin.categories." ? 'active' : '' }}"
                        href="{{ path('admin.categories.index') }}">Catégories</a>
                 </li>
-            </ul>
-            <ul class="navbar-nav mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('home') }}">Homepage</a>
-                    </li>
+                <li class="nav-item ms-md-3">
+                    <a class="nav-link" href="{{ path('home') }}">Homepage</a>
+                </li>
                 {% if app.user %}
                     <li class="nav-item dropdown me-5">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
