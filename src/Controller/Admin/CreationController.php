@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\UX\Turbo\TurboBundle;
 
 #[isGranted("ROLE_ADMIN")]
 #[Route('/admin/creations', name: 'admin.creations.')]
@@ -24,12 +25,14 @@ class CreationController extends AbstractController
         Request $request, CategoryRepository $categoryRepository): Response
     {
         $page = $request->query->getInt('page', 1);
+
         $filterCategory = $request->query->get('category');
         $filterName = $request->query->get('name');
         $creations = $creationRepository->paginatedCreationsByFilters($page,  $filterName, $filterCategory);
         $filter = (int)$filterCategory;
         $titleCategory = $categoryRepository->find($filter);
         $categories = $categoryRepository->findAll();
+//        $creations = $creationRepository->pagination($page);
         return $this->render('admin/creation/index.html.twig', [
             'creations' => $creations,
             'categories' => $categories,
@@ -49,7 +52,7 @@ class CreationController extends AbstractController
             $entityManager->persist($creation);
             $entityManager->flush();
             $this->addFlash('success','la création a été crée');
-            return $this->redirectToRoute('admin.creations.index');
+            return $this->redirectToRoute('admin.dashboard.index');
         }
         return $this->render('admin/creation/create.html.twig', [
             'form' => $form,
@@ -73,10 +76,17 @@ class CreationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'delete',requirements: ['id' => Requirement::DIGITS], methods: ['DELETE'])]
-    public function delete( Creation $creation, EntityManagerInterface $entityManager): Response
+    public function delete( Creation $creation,Request $request , EntityManagerInterface $entityManager): Response
     {
+        $creationId = $creation->getId();
         $entityManager->remove($creation);
         $entityManager->flush();
+        if(($request->getPreferredFormat() === TurboBundle::STREAM_FORMAT)){
+            $request->setRequestFormat(TurboBundle::STREAM_FORMAT);
+            return $this->render('admin/creation/deleteCreation.html.twig',[
+                'creationId' => $creationId,
+            ]);
+        }
         return $this->redirectToRoute('admin.creations.index');
     }
 

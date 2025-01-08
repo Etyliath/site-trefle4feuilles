@@ -3,30 +3,34 @@
 {% block title 'Les créations de Sylvie' %}
 
 {% block body %}
-    <section class="container mt-4" >
-        <h1>Les créations</h1>
-        <a href="{{ path('admin.creations.create') }}" class="btn btn-primary mb-3">Ajouter une création</a>
-        {% include 'partials/search.html.twig' with {'url':'admin.creations.index'} %}
-        <div class="table-responsive">
+    <section class="container mt-4 h-100">
+        <h1 class="text-center">Les créations</h1>
+        <a href="{{ path('admin.creations.create') }}" class="btn btn-info mb-2 shadow">
+            Ajouter une création
+        </a>
+        {% include 'admin/creation/partials/_search.html.twig' with {'url':'admin.creations.index'} %}
+        <div class="">
             <table class="table align-middle">
                 <thead>
                 <tr>
-                    <th>Nom</th>
+                    <th>{{ knp_pagination_sortable(creations,'Nom','c.name') }}</th>
                     <th>Photo</th>
-                    <th>Catégorie</th>
-                    <th>Vendu</th>
-                    <th>Prix</th>
+                    <th class="d-none d-md-block">Catégorie</th>
+                    <th>{{ knp_pagination_sortable(creations,'Vendu','c.sold') }}</th>
+                    <th class="d-none d-md-block">Prix</th>
                     <th style="width: 100px">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for creation in creations %}
-                    <tr>
+                    <tr id="row-creation-{{ creation.id }}">
                         <td>{{ creation.name }}</td>
-                        <td><img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" height="24" alt=""></td>
-                        <td>{{ creation.category.name }}</td>
-                        <td>
-                            <a href="{{ path('admin.creations.toggleSold', {id:creation.id}) }}">
+                        <td class="text-center"><img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}"
+                                                     height="24" alt=""></td>
+                        <td class="d-none d-md-block">{{ creation.category.name }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('admin.creations.toggleSold', {id:creation.id}) }}"
+                               class="text-decoration-none text-reset">
                                 {% if creation.sold %}
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                          class="bi bi-check-square" viewBox="0 0 16 16">
@@ -41,9 +45,10 @@
                                 {% endif %}
                             </a>
                         </td>
-                        <td>{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
+                        <td class="d-none d-md-block">{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</td>
                         <td class="">
-                            <div class="d-flex gap-1">
+                            <div class="d-flex gap-1 justify-content-around">
+
                                 <a href="{{ path('admin.creations.edit',{id: creation.id}) }}"
                                    class="text-decoration-none">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" color="primary"
@@ -54,7 +59,7 @@
                                 <form action="{{ path('admin.creations.delete', {id: creation.id}) }}" method="post"
                                       onsubmit="return confirm('Etes vous sur de vouloir supprimer la création {{ creation.name }} ?');">
                                     <input type="hidden" name="_method" value="DELETE">
-                                    <button type="submit" class="border-0 bg-white">
+                                    <button type="submit" class="border-0 bg-white p-0">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" color="#FBA7B4"
                                              fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                             <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>

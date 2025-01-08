@@ -14,14 +14,16 @@
 </head>
 <body>
 <header>
-    {% include 'admin/partials/header.html.twig' %}
+    {% include 'admin/partials/_header.html.twig' %}
 </header>
-<main>
-    <div class="container">
-        {% include 'admin/partials/flash.html.twig' %}
+<main class="">
+    <div class="">
+        {% include 'admin/partials/_flash.html.twig' %}
     </div>
     {% block body %}{% endblock %}
 </main>
-
+<footer class="mt-auto bg-warning">
+    {% include 'admin/partials/_footer.html.twig' %}
+</footer>
 </body>
 </html>

@@ -19,9 +19,10 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CategoryController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET'])]
-    public function index(CategoryRepository $repository): Response
+    public function index(CategoryRepository $repository, Request $request): Response
     {
-        $categories = $repository->findAll();
+        $page = $request->query->getInt('page', 1);
+        $categories = $repository->paginateCategory($page);
         return $this->render('admin/category/index.html.twig',[
             'categories' => $categories,
         ]);
