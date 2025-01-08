@@ -13,12 +13,12 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/profil', name: 'profil.')]
-class ProfilController extends AbstractController
+#[Route('/admin/profile', name: 'profile.')]
+class ProfileController extends AbstractController
 {
 
     #[Route('/edit', name: 'edit', methods: ['GET', 'POST'])]
-    public function editProfil(
+    public function editProfile(
         Request                     $request,
         EntityManagerInterface      $manager,
         UserPasswordHasherInterface $hasher): Response
@@ -33,7 +33,7 @@ class ProfilController extends AbstractController
             $this->addFlash('success','Profil modifé avec success');
             return $this->redirectToRoute('home');
         }
-        return $this->render('profil/editProfil.html.twig', [
+        return $this->render('profile/editProfile.html.twig', [
             'form' => $form,
         ]);
     }
@@ -43,7 +43,7 @@ class ProfilController extends AbstractController
     public function listUsers(UserRepository $userRepository)
     {
         $users = $userRepository->findAll();
-        return $this->render('admin/profil/listUsers.html.twig', [
+        return $this->render('admin/profile/user.html.twig', [
             'users' => $users,
         ]);
     }
@@ -56,7 +56,7 @@ class ProfilController extends AbstractController
         $manager->persist($user);
         $manager->flush();
         $this->addFlash('success','roles admin affecté avec success');
-        return $this->redirectToRoute('profil.listUsers');
+        return $this->redirectToRoute('profile.listUsers');
     }
 
     #[isGranted('ROLE_ADMIN')]
@@ -70,6 +70,6 @@ class ProfilController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
-        return $this->redirectToRoute('profil.listUsers');
+        return $this->redirectToRoute('profile.listUsers');
     }
 }

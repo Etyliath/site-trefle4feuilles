@@ -3,20 +3,24 @@
 {% block title 'Modifier une créations' %}
 
 {% block body %}
-    <section class="container mt-4">
+    <section class="container mt-4 mb-2">
         <h1>Modifier une création</h1>
-        {{ form_start(form) }}
-        {{ form_row(form.name) }}
-        {{ form_row(form.category) }}
-        {{ form_row(form.description) }}
-        <img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" height="200" alt="">
-        {{ form_row(form.thumbnailFile) }}
-        {{ form_row(form.price) }}
-        <div class="d-flex gap-2">
-            <button type="submit" class="btn btn-primary">Modifier</button>
-            <a href="{{ path('admin.creations.index') }}" class="btn btn-outline-primary">Cancel</a>
+        <div class="d-flex flex-column flex-md-row gap-md-2 justify-content-around">
+            <img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" alt="">
+
+            {{ form_start(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.category) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.thumbnailFile) }}
+            {{ form_row(form.price) }}
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+                <a href="{{ path('admin.creations.index') }}" class="btn btn-outline-primary">Cancel</a>
+            </div>
+            {{ form_end(form) }}
         </div>
-        {{ form_end(form) }}
+
     </section>
 
 {% endblock %}

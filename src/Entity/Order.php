@@ -46,6 +46,7 @@ class Order
         $this->orderItems = new ArrayCollection();
     }
 
+
     public function getId(): ?int
     {
         return $this->id;

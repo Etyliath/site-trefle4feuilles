@@ -52,7 +52,7 @@ export default class extends Controller {
                 })
                     .then(r => {
                         if (r.status === 200) {
-                            window.location.href = '/admin/dashboard/'
+                            window.location.href = '/admin/comments/'
                         } else {
                             alert(r.responseText)
                         }
@@ -69,7 +69,7 @@ export default class extends Controller {
                     method: 'POST',
                 }).then(r => {
                     if (r.status === 200) {
-                        window.location.href = '/admin/dashboard/'
+                        window.location.href = '/admin/comments/'
                     } else {
                         alert(r.responseText)
                     }

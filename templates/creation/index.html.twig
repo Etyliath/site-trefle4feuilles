@@ -4,7 +4,7 @@
 
 {% block body %}
     <section class="my-4">
-        {% include 'partials/search.html.twig' with {'url':'creations.index'} %}
+        {% include 'partials/_search.html.twig' with {'url':'creations.index'} %}
         <div class="row gap-3 mx-2 justify-content-center">
             {% for creation in creations %}
                 <a href="{{ path('creations.single', {id: creation.id}) }}"

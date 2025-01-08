@@ -24,10 +24,10 @@
                         <td>{{ user.roles|join(', ') }}</td>
                         <td>
                             <div class="btn-group gap-2">
-                                <a href="{{ path('profil.setAdmin', {id: user.id}) }}" class="btn btn-primary btn-sm">
+                                <a href="{{ path('profile.setAdmin', {id: user.id}) }}" class="btn btn-primary btn-sm">
                                     Set Admin
                                 </a>
-                                <a href="{{ path('profil.unsetAdmin', {id: user.id}) }}" class="btn btn-sm btn-danger">
+                                <a href="{{ path('profile.unsetAdmin', {id: user.id}) }}" class="btn btn-sm btn-danger">
                                     Unset Admin
                                 </a>
                             </div>

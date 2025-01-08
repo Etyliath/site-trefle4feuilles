@@ -6,55 +6,32 @@
     <section class="container mt-4">
         <div class="row justify-content-center justify-content-md-between align-items-center">
             <h1 class="ms-5 col-1 col-md-3 text-center">Dashboard</h1>
-            <div class="mt-3 mb-2 col-md-6 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
-                <p class="mt-3 mx-1 text-center">Bienvenue <strong>{{ app.user.username }}</strong><br>
+            <div class="my-2 col-md-6 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
+                <p class="mt-2 mx-1 text-center">Bienvenue <strong>{{ app.user.username }}</strong><br>
                     Gestion des créations de Sylvie
                 </p>
             </div>
         </div>
-        <div class="shadow p-2 mt-3 rounded-3" style="min-height: 300px">
-            <nav>
-                <div class="nav nav-tabs text-center" id="nav-tab" role="tablist">
-                    <button class="nav-link " id="nav-creation-tab" data-bs-toggle="tab"
-                            data-bs-target="#nav-creation" type="button" role="tab" aria-controls="nav-creation"
-                            aria-selected="true">Créations
-                    </button>
-                    <button class="nav-link" id="nav-category-tab" data-bs-toggle="tab" data-bs-target="#nav-category"
-                            type="button" role="tab" aria-controls="nav-category" aria-selected="false">Catégories
-                    </button>
-                    <button class="nav-link" id="nav-comment-tab" data-bs-toggle="tab" data-bs-target="#nav-comment"
-                            type="button" role="tab" aria-controls="nav-comment" aria-selected="false">Commentaires
-                    </button>
-                    <button class="nav-link" id="nav-order-tab" data-bs-toggle="tab" data-bs-target="#nav-order"
-                            type="button" role="tab" aria-controls="nav-order" aria-selected="false">Commandes
-                    </button>
-                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
-                            type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Profil
-                        utilisateur
-                    </button>
+    </section>
+    <section class="container mt-4">
+        <div class="shadow m-3 bg-secondary bg-opacity-25 rounded p-3">
+            <h2 class="text-center mb-4">Journal des événements</h2>
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Commentaire à valider</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p>Il y a actuellmennt {{ NumberCommentToValidate }} à valider </p>
+                    <a href="{{ path( 'admin.comments.index' ) }}" class="btn btn-primary">Voir la liste des commentaires</a>
                 </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade " id="nav-creation" role="tabpanel"
-                     aria-labelledby="nav-creation-tab" tabindex="0">
-                    {% include 'admin/Dashboard/partials/creation.html.twig' %}
-                </div>
-                <div class="tab-pane fade" id="nav-category" role="tabpanel" aria-labelledby="nav-category-tab"
-                     tabindex="0">
-                    {% include 'admin/Dashboard/partials/category.html.twig' %}
-                </div>
-                <div class="tab-pane fade" id="nav-comment" role="tabpanel" aria-labelledby="nav-comment-tab"
-                     tabindex="0" data-controller="commentModal">
-                    {% include 'admin/Dashboard/partials/comment.html.twig' %}
-                </div>
-                <div class="tab-pane fade" id="nav-order" role="tabpanel" aria-labelledby="nav-order-tab"
-                     tabindex="0">...
-                </div>
-                <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab"
-                     tabindex="0">
-                    {% include 'admin/Dashboard/partials/profil.html.twig' %}
+
+            </div>
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Commandes</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p> Il y a {{ NumberOrdersNoDelivered }} commandes en cours </p>
+                    <a href="{{ path( 'admin.orders.index' ) }}" class="btn btn-primary">Voir la liste des commandes</a>
                 </div>
             </div>
+
         </div>
     </section>
 

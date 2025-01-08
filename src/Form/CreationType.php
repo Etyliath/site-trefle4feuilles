@@ -25,7 +25,9 @@ class CreationType extends AbstractType
                 'choice_label' => 'name',
             ])
             ->add('description')
-            ->add('thumbnailFile', FileType::class)
+            ->add('thumbnailFile', FileType::class, [
+                'required' => false,
+            ])
             ->add('price', MoneyType::class, [
                 'currency' => 'EUR',
                 'divisor' => 100,
