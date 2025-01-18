@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'A Propos' %}
+
+{% block body %}
+    <section class="container mt-4 d-flex flex-column justify-content-center align-items-center">
+        <h1>A Propos</h1>
+        <img src="{{ asset('images/logo.png') }}" class="d-inline my-3" alt="" height="48">
+        <div class="h-100">
+
+            <img src="{{ asset('images/boucle.jpeg') }}" class="rounded-4 float-start me-3 " alt="des chats" width="200">
+            <p class="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam debitis eos facilis fugiat
+                iusto
+                maxime neque officia qui rerum similique sunt tempore tenetur totam, vitae voluptatibus. Incidunt ipsum
+                molestias voluptates?</p>
+            <img src="{{ asset('images/montagne.jpg') }}" class="rounded-4 float-end ms-3 " alt="des chats" width="200">
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aspernatur eos eveniet, exercitationem,
+                impedit mollitia necessitatibus nesciunt nostrum omnis, perferendis provident quaerat quidem repudiandae
+                rerum voluptatum. Nam neque officiis omnis.</p>
+            <p class="float-end mb-2 me-4"><em>Sylvie</em></p>
+        </div>
+        <img src="{{ asset('images/logo.png') }}" class="d-inline mb-3" alt="" height="48">
+    </section>
+{% endblock %}
