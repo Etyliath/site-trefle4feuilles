@@ -17,7 +17,17 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  background: linear-gradient(to bottom right,white, $info);
+  background: linear-gradient(0.55turn,white, $info,white);
+}
+
+header {
+  background: linear-gradient(0.55turn,white, $secondary,white);
+  box-shadow: 0 2px 4px $secondary;
+}
+
+footer {
+  background: linear-gradient(0.45turn,white,$warning,white);
+  box-shadow: 0 -3px 5px $warning;
 }
 
 .carousel-item img{
