@@ -15,7 +15,7 @@
                     <th class="d-none  d-md-table-cell">{{ knp_pagination_sortable(orders,'Pseudo','u.username') }}</th>
                     <th class="d-none  d-md-table-cell">Date</th>
                     <th>Statut</th>
-                    <th class="text-center">Detail/Créations</th>
+                    <th class="text-center">Detail</th>
                     <th class="">Actions</th>
                 </tr>
                 </thead>
@@ -26,8 +26,10 @@
                         <td class="d-none  d-md-table-cell">{{ order.user.username }}</td>
                         <td class="d-none  d-md-table-cell">{{ order.createdAt|date("d-m-y") }}</td>
                         <td>{{ order.status }}</td>
-                        <td class="text-center"><a href="{{ path('admin.orders.items.index', {id: order.id}) }}"
-                                                   class="btn btn-info ">{{ order.orderItems.count }}</a></td>
+                        <td class="text-center">
+                            <a href="{{ path('admin.orders.items.index', {id: order.id}) }}"
+                               class="btn btn-info ">{{ order.orderItems.count }}</a>
+                        </td>
                         <td class="align-middle">
                             <div class="d-flex align-items-center justify-content-evenly">
                                 {% if order.status == 'paid' %}

@@ -14,11 +14,11 @@
                        href="{{ path('admin.dashboard.index') }}">Dashboard</a>
                 </li>
                 <li class="nav-item dropdown me-5">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    <button class="nav-link dropdown-toggle " role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         Administration
-                    </a>
-                    <ul class="dropdown-menu">
+                    </button>
+                    <ul class="dropdown-menu admin-dropdown-menu m-lg-4">
                         <li><a class="dropdown-item" href="{{ path('admin.creations.index') }}">Créations</a></li>
                         <li><a class="dropdown-item" href="{{ path('admin.categories.index') }}">Catégories</a></li>
                         <li><a class="dropdown-item" href="{{ path('admin.comments.index') }}">Commentaire</a></li>
@@ -32,12 +32,12 @@
                 <li class="nav-item ms-md-3">
                     <a class="nav-link" href="{{ path('home') }}">Site</a>
                 </li>
-                <li class="nav-item dropdown me-5">
+                <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         {{ app.user.username }}
                     </a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu admin-dropdown-menu m-lg-4">
                         <li><a class="dropdown-item" href="{{ path('profile.edit') }}">Profil</a></li>
                         <li>
                             <hr class="dropdown-divider">

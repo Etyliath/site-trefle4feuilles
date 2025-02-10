@@ -4,13 +4,13 @@
 
 {% block body %}
 
-    <section class="container mt-2">
-        <h1 class="text-center ">
-            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
-            Bienvenue au <em>trèfle à 4 feuilles</em>
-            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
+    <section class="container mt-4">
+        <h1 class="text-center">
+            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="32">
+            Bienvenue au ~ <span class="fst-italic fw-bolder text-success">trèfle à 4 feuilles</span> ~
+            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="32">
         </h1>
-        <div class="container">
+        <div class="container mt-2">
             {% include 'home/partials/_carousel.html.twig' %}
         </div>
         <div class="d-flex flex-column align-items-center mt-4">
