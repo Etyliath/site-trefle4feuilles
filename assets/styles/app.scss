@@ -1,4 +1,4 @@
-$primary: #2B2BFF;
+$primary: #0e5e97;
 $secondary: #A8BFF5;
 $success: #328533;
 $info: #8AFFF3;
@@ -31,6 +31,11 @@ footer {
   box-shadow: 0 -3px 5px $warning;
 }
 
+.admin-dropdown-menu{
+  background: linear-gradient(0.55turn,white,$info,white);
+  border:0;
+}
+
 .carousel-item img{
   height: 300px;
   object-fit: fill;
@@ -42,4 +47,42 @@ footer {
 }
 .card img{
   max-height: 400px;
+}
+
+.card-price{
+  font-weight: bold;
+}
+
+.product-dispo{
+  top: 100px;
+  right: 60px;
+  transform: rotate(-45deg);
+}
+
+.accordion-item{
+  background: linear-gradient(0.55turn,white,$info,white);
+}
+
+.accordion-button.collapsed{
+  background: linear-gradient(0.25turn,white,30%, $secondary);
+}
+
+.btn{
+  border-radius: 50px;
+}
+
+@media (max-width: 960px){
+  .product-dispo{
+    top: 60px;
+    right: 20px;
+    transform: rotate(-45deg);
+  }
+}
+
+@media (max-width: 780px){
+  .product-dispo{
+    top: 80px;
+    right: 100px;
+    transform: rotate(-45deg);
+  }
 }

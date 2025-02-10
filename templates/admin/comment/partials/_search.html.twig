@@ -1,19 +1,16 @@
-<div class="form-group mb-2">
+<div class="form-group mb-3">
     <form action="{{ path( 'admin.comments.index' , {filterValidated: 'filterValidated',filterUsernameOrEmail:'filterUsernameOrEmail'} ) }}"
           method="get"
-          class="d-flex align-items-center justify-content-md-center gap-2">
-        <div class="form-floating">
-            <select name="filterValidated" id="filterValidated" class="form-select">
+          class="d-flex justify-content-md-center">
+        <div class="d-flex bg-white px-2 rounded-5">
+            <select name="filterValidated" id="filterValidated" class="form-select border-0">
                 <option value="all" {{ filterValidated == null ? 'selected' : '' }}>Tous</option>
                 <option value="1" {{ filterValidated == "1" ? 'selected' : '' }}>Oui</option>
                 <option value="0" {{ filterValidated == "0" ? 'selected' : '' }}>Non</option>
             </select>
-            <label for="filterValidated" class="form-label">Valider ?</label>
+            <input type="text" id="filterUsernameOrEmail" name="filterUsernameOrEmail" value=""
+                   class="form-control border-0" placeholder="auteurs...">
+            <button class="btn btn-light mx-1" type="submit"><i class="bi bi-search"></i></button>
         </div>
-        <div class="form-floating">
-            <input type="text" id="filterUsernameOrEmail" name="filterUsernameOrEmail" value="" class="form-control">
-            <label for="filterUsernameOrEmail" class="form-label">Username or Email</label>
-        </div>
-        <button class="btn btn-primary btn-sm" type="submit">Filtrer</button>
     </form>
 </div>

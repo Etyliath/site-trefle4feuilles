@@ -11,8 +11,8 @@
         <div class="row col-lg-8 gap-2 mx-auto mb-3">
             {% for order in orders %}
                 {% if order.status == 'pending' %}
-                    <div class="card shadow-sm mb- order-0">
-                        <h5 class="card-header bg-warning text-center">Commande en cours</h5>
+                    <div class="card shadow-sm mb- order-0 rounded-4">
+                        <h5 class="card-header bg-warning border border-1 text-center rounded-3 mt-2 p-2">Commande en cours</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <div class="row align-items-center">
@@ -68,8 +68,8 @@
                 {% endif %}
             {% endfor %}
 
-            <div class="card shadow-sm order-1">
-                <h5 class="card-header bg-warning text-center">Commande effectuer</h5>
+            <div class="card shadow-sm order-1 rounded-4">
+                <h5 class="card-header bg-warning border border-1 text-center rounded-3 mt-2 p-2">Commandes effectuées</h5>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         <div class="row align-items-center">

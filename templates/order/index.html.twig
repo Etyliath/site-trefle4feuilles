@@ -5,112 +5,100 @@
 {% block body %}
 
     <section>
-        <div class="container mb-4">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="my-3">
-                        <h1 class="text-center">Ma commande</h1>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="row shadow rounded-2 py-2">
-                    <div class="col-lg-7 col-md-12 order-md-0 order-1">
-                        <h4>Informations</h4>
-                        {{ form_start(form) }}
-                        <div class="accordion accordion-flush rounded-2 shadow-sm" id="accordionExample">
-                            <div class="accordion-item bg-transparent">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button bg-info rounded-top-3" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseOne" aria-expanded="true"
-                                            aria-controls="collapseOne">
-                                        Adresse de livraison
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show"
-                                     data-bs-parent="#accordionExample">
-                                    <div class="accordion-body ">
-                                        {{ form_row(form.address) }}
-                                        {{ form_row(form.zipcode) }}
-                                        {{ form_row(form.city) }}
+        <div class="container my-4">
+            <h1 class="text-center">Ma commande</h1>
+            <a href="{{ path('orders.user') }}" class="btn btn-primary mb-3">Retour liste</a>
+            <div class="row shadow rounded-4 py-2">
+                <div class="col-lg-7 col-md-12 order-lg-0 order-1">
+                    <h4>Informations</h4>
+                    {{ form_start(form) }}
+                    <div class="accordion accordion-flush rounded-4 p-2 shadow-sm bg-white" id="accordionExample">
+                        <div class="accordion-item ">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button p-2 rounded-3" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                    Adresse de livraison
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse "
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body ">
+                                    {{ form_row(form.address) }}
+                                    {{ form_row(form.zipcode) }}
+                                    {{ form_row(form.city) }}
 
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="accordion-item bg-transparent">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed bg-info rounded-bottom-3" type="button"
-                                            data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                        Instructions de livraison
-                                    </button>
-                                </h2>
-                                <div id="collapseTwo" class="accordion-collapse collapse"
-                                     data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        {{ form_row(form.instruction) }}
-                                        <p class="form-text">Ajoutez des instructions sur la manière dont vous
-                                            souhaitez
-                                            que votre commande soit achetée et/ou livrée</p>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-end mt-2">
-                            <button type="submit" class="btn btn-primary" data-turbo="false">Payer</button>
+                        <div class="accordion-item ">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button p-2 mt-2 rounded-3 collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Instructions de livraison
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse show"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{ form_row(form.instruction) }}
+                                    <p class="form-text">Ajoutez des instructions sur la manière dont vous
+                                        souhaitez
+                                        que votre commande soit achetée et/ou livrée</p>
+                                </div>
+                            </div>
                         </div>
-                        {{ form_end(form) }}
                     </div>
-                    <div class="col-lg-4 col-md-12 col-12 offset-lg-1 order-md-1 order-0">
-                        <div class="mt-4 mt-lg-0" style="max-width: 390px">
-                            <div class="card shadow-sm">
-                                <h5 class="text-center p-2 bg-warning m-0">Detail de la commande</h5>
-                                <ul class="list-group list-group-flush">
-                                    {% set total = null %}
-                                    {% for OrderItem in orderItems %}
-                                        {% set total = total + OrderItem.creation.price %}
-                                        <li class="px-4 py-3 list-group-item" id="row-order-item-{{ OrderItem.id }}">
-                                            <div class="row">
-                                                <div class="col-md-2 col-2">
-                                                    <img src="{{ vich_uploader_asset(OrderItem.creation, 'thumbnailFile') }}"
-                                                         height="24" alt="">
-                                                </div>
-                                                <div class="col-md-6 col-6">
-                                                    {{ OrderItem.creation.name }}
-                                                </div>
-                                                <div class="text-lg-end text-start text-md-end col-md-3 col-3">
-                                                    {{ (OrderItem.creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}
-                                                </div>
-                                                <div class="col-md-1 col-1">
-                                                    <a href="{{ path('orders.remove.orderItem', {id : OrderItem.id}) }}"
-                                                       class="text-danger">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                             fill="currentColor"
-                                                             class="bi bi-trash3" viewBox="0 0 16 16">
-                                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                                        </svg>
-                                                    </a>
-                                                </div>
+                    <div class="text-end mt-2">
+                        <button type="submit" class="btn btn-primary" data-turbo="false">Payer</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-lg-5 col-12  order-lg-1 order-0">
+                    <div class="mt-3 mt-lg-5">
+                        <div class="card shadow-sm rounded-4 p-2">
+                            <h5 class="text-center p-2 rounded-3 bg-warning ">Detail de la commande</h5>
+                            <ul class="list-group list-group-flush">
+                                {% set total = null %}
+                                {% for OrderItem in orderItems %}
+                                    {% set total = total + OrderItem.creation.price %}
+                                    <li class="px-4 py-3 list-group-item" id="row-order-item-{{ OrderItem.id }}">
+                                        <div class="row">
+                                            <div class="col-md-2 col-2">
+                                                <img src="{{ vich_uploader_asset(OrderItem.creation, 'thumbnailFile') }}"
+                                                     height="24" alt="">
                                             </div>
-                                        </li>
-                                    {% endfor %}
-                                    <div class="px-4 py-3 list-group-item bg-info">
-                                        <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
-                                            <div>
-                                                <span class="">Tolal</span>
-                                                <span class="text-dark-emphasis opacity-50">(TVA incluse)</span>
+                                            <div class="col-md-6 col-6">
+                                                {{ OrderItem.creation.name }}
                                             </div>
-                                            <div class="pe-md-3 pe-4">{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</div>
+                                            <div class="text-lg-end text-start text-md-end col-md-3 col-3">
+                                                {{ (OrderItem.creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}
+                                            </div>
+                                            <div class="col-md-1 col-1">
+                                                <a href="{{ path('orders.remove.orderItem', {id : OrderItem.id}) }}"
+                                                   class="text-danger"><i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
                                         </div>
+                                    </li>
+                                {% endfor %}
+                                <div class="px-4 py-3 mt-2 rounded-3 list-group-item bg-info">
+                                    <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
+                                        <div>
+                                            <span class="">Tolal</span>
+                                            <span class="text-dark-emphasis opacity-50">(TVA incluse)</span>
+                                        </div>
+                                        <div class="pe-md-3 pe-4">{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</div>
                                     </div>
-                                </ul>
-                            </div>
-                            <div class="text-end mt-2">
-                                <a href="{{ path('orders.remove', {id : order.id}) }}" class="btn btn-danger">Annuler la
-                                    commande</a>
-                            </div>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="text-end mt-3">
+                            <a href="{{ path('orders.remove', {id : order.id}) }}" class="btn btn-danger">Annuler la
+                                commande</a>
                         </div>
                     </div>
                 </div>

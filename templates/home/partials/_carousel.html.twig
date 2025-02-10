@@ -3,7 +3,7 @@
         {% for creation in creations %}
             <div class="carousel-item text-center {{ loop.first ? 'active' }}">
                 <a href="{{ path('creations.single', {id: creation.id}) }}">
-                    <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="" alt="...">
+                    <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="rounded-3 object-fit-cover" alt="..." style="max-width: 250px;">
                 </a>
             </div>
         {% endfor %}

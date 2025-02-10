@@ -15,7 +15,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ app.current_route starts with "creations." ? 'active' : '' }}"
-                       href="{{ path('creations.index') }}">Créations</a>
+                       href="{{ path('creations.index') }}">Mes Créations</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ app.current_route == "contact" ? 'active' : '' }}"
@@ -33,12 +33,12 @@
 
                 {% if app.user %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle rounded-2 border-0" href="#" role="button"
+                        <button class="nav-link dropdown-toggle rounded-2 border-0" role="button"
                            data-bs-toggle="dropdown"
                            aria-expanded="false">
                             {{ app.user.username }}
-                        </a>
-                        <ul class="dropdown-menu mt-lg-3">
+                        </button>
+                        <ul class="dropdown-menu admin-dropdown-menu mt-lg-3">
                             <li class=""><a class="dropdown-item" href="{{ path('profile.edit') }}">Profil</a></li>
                             <li class=""><a class="dropdown-item" href="{{ path('orders.user') }}">Mes commandes</a>
                             </li>

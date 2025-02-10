@@ -5,7 +5,7 @@
 {% block body %}
     <section class="container mt-4 h-100">
         <h1 class="text-center">Les créations</h1>
-        <a href="{{ path('admin.creations.create') }}" class="btn btn-info mb-2 shadow">
+        <a href="{{ path('admin.creations.create') }}" class="btn btn-primary mb-2 shadow">
             Ajouter une création
         </a>
         {% include 'admin/creation/partials/_search.html.twig' with {'url':'admin.creations.index'} %}
