@@ -30,7 +30,7 @@ class ProfileController extends AbstractController
             $user->setPassword($hasher->hashPassword($user, $form->get('password')->getData()));
             $manager->persist($user);
             $manager->flush();
-            $this->addFlash('success','Profil modifé avec success');
+            $this->addFlash('success', 'Profil modifé avec success');
             return $this->redirectToRoute('home');
         }
         return $this->render('profile/editProfile.html.twig', [
@@ -49,13 +49,24 @@ class ProfileController extends AbstractController
     }
 
     #[isGranted('ROLE_ADMIN')]
+    #[Route('/resetPassword/{id}', name: 'resetPassword', methods: ['GET'])]
+    public function resetPassword(User $user, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
+    {
+        $user->setPassword($hasher->hashPassword($user, 'password'));
+        $manager->persist($user);
+        $manager->flush();
+        $this->addFlash('success', 'Mot de passe modifier avec success');
+        return $this->redirectToRoute('home');
+    }
+
+    #[isGranted('ROLE_ADMIN')]
     #[Route('/setAdmin/{id}', name: 'setAdmin', methods: ['GET'])]
     public function setAdmin(User $user, EntityManagerInterface $manager): Response
     {
         $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
         $manager->flush();
-        $this->addFlash('success','roles admin affecté avec success');
+        $this->addFlash('success', 'roles admin affecté avec success');
         return $this->redirectToRoute('profile.listUsers');
     }
 
@@ -70,6 +81,32 @@ class ProfileController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
+        return $this->redirectToRoute('profile.listUsers');
+    }
+
+    #[isGranted('ROLE_ADMIN')]
+    #[Route('/setBeta/{id}', name: 'setBeta', methods: ['GET'])]
+    public function setBeta(User $user, EntityManagerInterface $manager): Response
+    {
+        $roles = $user->getRoles();
+        $roles[] = 'ROLE_BETA';
+        $user->setRoles($roles);
+        $manager->persist($user);
+        $manager->flush();
+        $this->addFlash('success', 'role beta affecté avec success');
+        return $this->redirectToRoute('profile.listUsers');
+    }
+
+    #[isGranted('ROLE_ADMIN')]
+    #[Route('/unsetBeta/{id}', name: 'unsetBeta', methods: ['GET'])]
+    public function unsetBeta(User $user, EntityManagerInterface $manager): Response
+    {
+        $roles = $user->getRoles();
+        $key = array_search('ROLE_BETA', $roles);
+        unset($roles[$key]);
+        $user->setRoles($roles);
+        $manager->persist($user);
+        $manager->flush();
         return $this->redirectToRoute('profile.listUsers');
     }
 }

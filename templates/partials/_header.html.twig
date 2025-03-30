@@ -39,8 +39,16 @@
                             {{ app.user.username }}
                         </button>
                         <ul class="dropdown-menu admin-dropdown-menu mt-lg-3">
-                            <li class=""><a class="dropdown-item" href="{{ path('profile.edit') }}">Profil</a></li>
-                            <li class=""><a class="dropdown-item" href="{{ path('orders.user') }}">Mes commandes</a>
+                            <li class="">
+                                <a class="dropdown-item" href="{{ path('profile.edit') }}">Profil</a>
+                            </li>
+                            {% if is_granted('ROLE_BETA') %}
+                                <li class="">
+                                    <a class="dropdown-item" href="{{ path('orders.user') }}">Mes commandes</a>
+                                </li>
+                            {% endif %}
+                            <li class="">
+                                <a class="dropdown-item" href="{{ path('reservations.user') }}">Mes réservations</a>
                             </li>
                             <li>
                                 <hr class="dropdown-divider">

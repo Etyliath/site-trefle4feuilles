@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Creation;
 use App\Entity\Order;
+use App\Entity\Reservation;
 use App\Service\CartService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,18 +17,21 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 #[Route('/cart', name: 'cart.')]
 class CartController extends AbstractController
 {
-    public function __construct(private CartService $cartService)
+    public function __construct(private readonly CartService $cartService)
     {
     }
 
     #[Route('/', name: 'index', methods: ['GET'])]
     public function index(SessionInterface $session, EntityManagerInterface $em): Response
     {
+
         $cart = $this->cartService->getTotal();
         $order = $em->getRepository(Order::class)->findByUserAndStatus( $this->getUser(), 'pending');
+        $reservation = $em->getRepository(Reservation::class)->findByUserAndStatus( $this->getUser(), 'pending');
         return $this->render('cart/index.html.twig',[
             'cart' => $cart,
             'order' => $order,
+            'reservation' => $reservation,
         ]);
     }
 

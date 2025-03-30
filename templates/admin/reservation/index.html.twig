@@ -1,0 +1,80 @@
+{% extends 'admin/admin.html.twig' %}
+{% block title 'Liste des réservations' %}
+
+{% block body %}
+
+    <section class="container mt-4" data-controller="reservationModal">
+        <h1>Mes réservations</h1>
+        {% include 'admin/reservation/partials/_modalDetailReservation.html.twig' %}
+        {% include 'admin/reservation/partials/_search.html.twig' %}
+        <div class="rounded-4 shadow-sm bg-white p-1">
+            <table class="table table-striped align-middle"  data-controller="tooltip">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(reservations,'ID','r.id') }}</th>
+                    <th class="d-none  d-md-table-cell">{{ knp_pagination_sortable(reservations,'Pseudo','u.username') }}</th>
+                    <th class="d-none  d-md-table-cell">Date</th>
+                    <th>Statut</th>
+                    <th class="text-center">Article(s)</th>
+                    <th class="">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for reservation in reservations %}
+                    <tr>
+                        <td>{{ reservation.id }}</td>
+                        <td class="d-none  d-md-table-cell">{{ reservation.user.username }}</td>
+                        <td class="d-none  d-md-table-cell">{{ reservation.createdAt|date("d-m-y") }}</td>
+                        <td>{{ reservation.status }}</td>
+                        <td class="text-center">
+{#                            <a href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}"#}
+{#                               class="btn btn-info ">{{ reservation.reservationItems.count }}</a>#}
+
+                            <a class="link-offset-2" href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}">
+                                <span class="fw-bold fs-5"
+                                      data-bs-toggle="tooltip" data-bs-placement="top"
+                                      data-bs-custom-class="custom-tooltip"
+                                      data-bs-title="Voir la liste des articles"
+                                > {{ reservation.reservationItems.count }}</span>
+                            </a>
+                        </td>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center gap-1 ">
+                                {% if reservation.status == 'reserved' %}
+                                    <form action="{{ path('admin.reservations.validated', {id: reservation.id}) }}" method="post"
+                                          onsubmit="return confirm('do you want to confirm validation?')">
+                                        <button type="submit" class="btn btn-success btn-sm shadow-sm">
+                                            Validater
+                                        </button>
+                                    </form>
+                                {% endif %}
+                                {% if reservation.status == 'validated' %}
+                                    <form action="{{ path('admin.reservations.delivered', {id: reservation.id}) }}" method="post"
+                                          onsubmit="return confirm('do you want to confirm delivery?')">
+                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm"><i class="bi bi-truck"></i></button>
+                                    </form>
+                                {% endif %}
+                                <!-- Button trigger modal Reservation -->
+                                <button type="button" class="open-modal-reservation btn btn-primary btn-sm shadow-sm"
+                                        data-id="{{ reservation.id }}"
+                                        data-created_at="{{ reservation.createdAt|date("d M Y H:m", "Europe/Paris") }}"
+                                        data-username="{{ reservation.user.username }}"
+                                        data-email="{{ reservation.user.email }}"
+                                        data-message="{{ reservation.message }}"
+                                        data-status="{{ reservation.status }}"
+                                        data-bs-toggle="modal" data-bs-target="#reservationModal">
+                                   voir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+
