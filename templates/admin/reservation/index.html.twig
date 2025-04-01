@@ -8,7 +8,7 @@
         {% include 'admin/reservation/partials/_modalDetailReservation.html.twig' %}
         {% include 'admin/reservation/partials/_search.html.twig' %}
         <div class="rounded-4 shadow-sm bg-white p-1">
-            <table class="table table-striped align-middle"  data-controller="tooltip">
+            <table class="table table-striped align-middle" data-controller="tooltip">
                 <thead>
                 <tr>
                     <th>{{ knp_pagination_sortable(reservations,'ID','r.id') }}</th>
@@ -27,21 +27,16 @@
                         <td class="d-none  d-md-table-cell">{{ reservation.createdAt|date("d-m-y") }}</td>
                         <td>{{ reservation.status }}</td>
                         <td class="text-center">
-{#                            <a href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}"#}
-{#                               class="btn btn-info ">{{ reservation.reservationItems.count }}</a>#}
-
-                            <a class="link-offset-2" href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}">
-                                <span class="fw-bold fs-5"
-                                      data-bs-toggle="tooltip" data-bs-placement="top"
-                                      data-bs-custom-class="custom-tooltip"
-                                      data-bs-title="Voir la liste des articles"
-                                > {{ reservation.reservationItems.count }}</span>
+                            <a class="link-offset-2 fw-bold fs-5"
+                               href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}">
+                                {{ reservation.reservationItems.count }}
                             </a>
                         </td>
                         <td class="align-middle">
-                            <div class="d-flex align-items-center gap-1 ">
+                            <div class="d-flex align-items-center gap-2 ">
                                 {% if reservation.status == 'reserved' %}
-                                    <form action="{{ path('admin.reservations.validated', {id: reservation.id}) }}" method="post"
+                                    <form action="{{ path('admin.reservations.validated', {id: reservation.id}) }}"
+                                          method="post"
                                           onsubmit="return confirm('do you want to confirm validation?')">
                                         <button type="submit" class="btn btn-success btn-sm shadow-sm">
                                             Validater
@@ -49,9 +44,12 @@
                                     </form>
                                 {% endif %}
                                 {% if reservation.status == 'validated' %}
-                                    <form action="{{ path('admin.reservations.delivered', {id: reservation.id}) }}" method="post"
+                                    <form action="{{ path('admin.reservations.delivered', {id: reservation.id}) }}"
+                                          method="post"
                                           onsubmit="return confirm('do you want to confirm delivery?')">
-                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm"><i class="bi bi-truck"></i></button>
+                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm">
+                                            Livrer
+                                        </button>
                                     </form>
                                 {% endif %}
                                 <!-- Button trigger modal Reservation -->
@@ -63,7 +61,7 @@
                                         data-message="{{ reservation.message }}"
                                         data-status="{{ reservation.status }}"
                                         data-bs-toggle="modal" data-bs-target="#reservationModal">
-                                   voir
+                                    voir
                                 </button>
                             </div>
                         </td>
