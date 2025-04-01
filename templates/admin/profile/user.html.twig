@@ -27,8 +27,17 @@
                                 <a href="{{ path('profile.setAdmin', {id: user.id}) }}" class="btn btn-primary btn-sm">
                                     Set Admin
                                 </a>
+                                <a href="{{ path('profile.setBeta', {id: user.id}) }}" class="btn btn-primary btn-sm">
+                                    Set Beta
+                                </a>
+                                <a href="{{ path('profile.unsetBeta', {id: user.id}) }}" class="btn btn-warning btn-sm">
+                                    unset Beta
+                                </a>
                                 <a href="{{ path('profile.unsetAdmin', {id: user.id}) }}" class="btn btn-sm btn-danger">
                                     Unset Admin
+                                </a>
+                                <a href="{{ path('profile.resetPassword', {id: user.id}) }}" class="btn btn-sm btn-info">
+                                    reset password
                                 </a>
                             </div>
                         </td>

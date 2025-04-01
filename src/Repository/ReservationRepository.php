@@ -2,49 +2,46 @@
 
 namespace App\Repository;
 
-use App\Entity\Order;
+use App\Entity\Reservation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @extends ServiceEntityRepository<Order>
+ * @extends ServiceEntityRepository<Reservation>
  */
-class OrderRepository extends ServiceEntityRepository
+class ReservationRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry, private readonly PaginatorInterface $paginator)
     {
-        parent::__construct($registry, Order::class);
+        parent::__construct($registry, Reservation::class);
     }
 
-    public function findByUserAndStatus($user, $status): ?Order
+    public function findByUserAndStatus($user, $status): ?Reservation
     {
-        return $this->createQueryBuilder('o')
-            ->andWhere('o.user = :user')
-            ->andWhere('o.status = :status')
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.User = :user')
+            ->andWhere('r.status = :status')
             ->setParameter('user', $user)
             ->setParameter('status', $status)
             ->getQuery()
             ->getOneOrNullResult();
     }
 
-    public function paginatedOrderFilters(int $page, int|null $order, string|null $name, string|null $status): PaginationInterface
+    public function paginatedReservationFilters(int $page, int|null $reservation, string|null $name, string|null $status): ?PaginationInterface
     {
-        $qb = $this->createQueryBuilder('o');
-
-        if ($order) {
-            $qb->andWhere('o.id = :order')
-                ->setParameter('order', $order);
+        $qb = $this->createQueryBuilder('r');
+        if ($reservation) {
+            $qb->andWhere('r.id = :reservation')
+                ->setParameter('reservation', $reservation);
         }
-
-        if($status) {
-            $qb->andWhere('o.status = :status')
+        if ($status) {
+            $qb->andWhere('r.status = :status')
                 ->setParameter('status', $status);
         }
-
-        $qb->orderBy('o.createdAt', 'DESC');
-        $qb->leftJoin('o.user', 'u');
+        $qb->orderBy('r.createdAt', 'DESC');
+        $qb->leftJoin('r.User', 'u');
         if ($name) {
             $qb->andWhere($qb->expr()->orX(
                 $qb->expr()->like('u.username', ':name'),
@@ -52,9 +49,7 @@ class OrderRepository extends ServiceEntityRepository
             ))
                 ->setParameter('name', '%' . $name . '%');
         }
-
         $qb->getQuery();
-
         return $this->paginator->paginate(
             $qb,
             $page,
@@ -62,23 +57,22 @@ class OrderRepository extends ServiceEntityRepository
             [
                 'distinct' => true,
                 'sortfieldAllowList' => [
-                    'o.createdAt',
+                    'r.createdAt',
                     'u.username',
                     'u.email',
                 ]
             ]);
-
     }
 
-    public function ordersNoDelivered(string|null $status): array
+    public function reservationNoDelivered(string|null $status): array
     {
-        $qb = $this->createQueryBuilder('o');
-            if($status !== null){
-                $qb->andWhere(
-                    $qb->expr()->neq('o.status', ':status'))
+        $qb = $this->createQueryBuilder('r');
+        if ($status!==null) {
+            $qb->andWhere(
+                $qb->expr()->neq('r.status', ':status'))
                     ->setParameter('status', $status);
-            }
-            return $qb->getQuery()->getResult();
+        }
+        return $qb->getQuery()->getResult();
     }
 
 }

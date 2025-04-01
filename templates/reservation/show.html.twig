@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma réservation{% endblock %}
+
+{% block body %}
+    <section class="container mb-2">
+        <h1 class="mt-2 text-center">Réservation N° : {{ reservation.id }}</h1>
+        <a href="{{ path('reservations.user') }}" class="btn btn-primary mb-2">Retour aux réservation</a>
+        <div class="card p-2 rounded-3">
+            <div class="card-header bg-warning rounded-3">
+                <div class="row">
+                    <div class="col">
+                        Date: {{ reservation.createdAt|date("m/d/y") }}
+                    </div>
+                    <div class="col text-nowrap">
+                        Date maj :{{ reservation.updatedAt|date("m/d/y") }}
+                    </div>
+                    <div class="col text-nowrap">Statut : {{ reservation.status }}</div>
+                </div>
+            </div>
+            <div class="card-body row">
+                <ul class="list-group list-group-flush">
+                    {% for reservationItem in reservationItems %}
+                        <li class=" list-group-item" id="row-reservation-item{{ reservationItem.id }}">
+                            <div class="row">
+                                <div class="col">
+                                    <img src="{{ vich_uploader_asset(reservationItem.creation, 'thumbnailFile') }}"
+                                         height="24" alt="">
+                                </div>
+                                <div class="col">
+                                    {{ reservationItem.creation.name }}
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="card-footer bg-white">
+                    <div class="px-4 py-3 mt-2 rounded-3 list-group-item bg-info">
+                        <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
+                            <div>Nombre d'articles</div>
+                            <div class="">{{ reservation.reservationItems.count }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

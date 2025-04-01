@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Reservation' %}
+
+{% block body %}
+    <section class="container mt-4 d-flex flex-column justify-content-center align-items-center">
+        <div class="container my-4">
+            <div class="d-flex justify-content-evenly align-items-center">
+                <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
+                <h1 class="text-center">Ma Reservation</h1>
+                <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="24">
+            </div>
+            <a href="{{ path('reservations.user') }}" class="btn btn-primary mb-1">Retour à la liste</a>
+            <div class="row shadow rounded-4 py-1">
+                <div class="col-lg-7 col-md-12 order-lg-0 order-1">
+                    <h4>Contact</h4>
+                    {{ form_start(form) }}
+                    <div class="accordion accordion-flush rounded-4 p-2 shadow-sm bg-white" id="accordionExample">
+                        <div class="accordion-item ">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button p-2 rounded-3" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                    Informations utilisateur
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse "
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body ">
+                                    <p class="fst-italic"><span
+                                                class="fw-bold">demandeur : </span> {{ reservation.user.firstname }} {{ reservation.user.lastname }}
+                                    </p>
+                                    <p class="fst-italic"><span
+                                                class="fw-bold">Email : </span> {{ reservation.user.email }} </p>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item ">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button p-2 mt-2 rounded-3 collapsed" type="button"
+                                        data-bs-toggle="collapse"
+                                        data-bs-target="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                    Message
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse show"
+                                 data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    {{ form_row(form.message) }}
+                                    <p class="small form-text fst-italic">Ajoutez un message à la réservation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end mt-2">
+                        <button type="submit" class="btn btn-primary" data-turbo="false">Reserever</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <div class="col-lg-5 col-12  order-lg-1 order-0">
+                    <div class="mt-3 mt-lg-5">
+                        <div class="card shadow-sm rounded-4 p-2">
+                            <h5 class="text-center p-2 rounded-3 bg-warning ">Detail de la reservation</h5>
+                            <ul class="list-group list-group-flush">
+                                {% for reservationItem in reservationItems %}
+                                    <li class="px-4 py-3 list-group-item"
+                                        id="row-reservation-item-{{ reservationItem.id }}">
+                                        <div class="row justify-content-between">
+                                            <div class="col-md-2 col-2">
+                                                <img src="{{ vich_uploader_asset(reservationItem.creation, 'thumbnailFile') }}"
+                                                     height="24" alt="">
+                                            </div>
+                                            <div class="col-md-6 col-6">
+                                                {{ reservationItem.creation.name }}
+                                            </div>
+
+                                            <div class="col-md-1 col-1">
+                                                <a href="{{ path('reservations.remove.reservationItem', {id : reservationItem.id}) }}"
+                                                   class="text-danger"><i class="bi bi-trash"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                <div class="px-4 py-3 mt-2 rounded-3 list-group-item bg-info">
+                                    <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
+                                        <div>Nombre d'articles</div>
+                                        <div class="">{{ reservation.reservationItems.count }}</div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="text-end mt-3">
+                            <a href="{{ path('reservations.remove',{id: reservation.id}) }}" class="btn btn-danger">Annuler
+                                la réservation</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <img src="{{ asset('images/logo.png') }}" class="d-inline mb-3" alt="" height="48">
+    </section>
+{% endblock %}

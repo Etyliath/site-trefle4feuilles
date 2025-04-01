@@ -19,7 +19,7 @@
             <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
                 <h3>Commentaire à valider</h3>
                 <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
-                    <p>Il y a actuellmennt {{ NumberCommentToValidate }} à valider </p>
+                    <p>Il y a actuellmennt {{ numberCommentToValidate }} à valider </p>
                     <a href="{{ path( 'admin.comments.index' ) }}" class="btn btn-primary">Voir la liste des commentaires</a>
                 </div>
 
@@ -27,11 +27,17 @@
             <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
                 <h3>Commandes</h3>
                 <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
-                    <p> Il y a {{ NumberOrdersNoDelivered }} commandes en cours </p>
+                    <p> Il y a {{ numberOrdersNoDelivered }} commandes en cours </p>
                     <a href="{{ path( 'admin.orders.index' ) }}" class="btn btn-primary">Voir la liste des commandes</a>
                 </div>
             </div>
-
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Réservation</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p> Il y a {{ numberReservationNoDelivered }} Réservation en cours </p>
+                    <a href="{{ path( 'admin.reservations.index' ) }}" class="btn btn-primary">Voir la liste des réservations</a>
+                </div>
+            </div>
         </div>
     </section>
 

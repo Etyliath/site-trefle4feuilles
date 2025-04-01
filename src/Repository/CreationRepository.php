@@ -22,6 +22,7 @@ class CreationRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select('c', 'cy')
+            ->where('c.sold= false')
             ->orderBy('c.createdAt', 'DESC')
             ->leftJoin('c.category', 'cy')
             ->setMaxResults($limit)

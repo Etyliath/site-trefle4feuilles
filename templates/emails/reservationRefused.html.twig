@@ -1,0 +1,22 @@
+<p>
+    votre demande de reservation a été refusée
+</p>
+<h3>Demandeur:</h3>
+<ul>
+    <li>Nom :{{ reservation.user.lastname }}</li>
+    <li>Prénom :{{ reservation.user.firstname }}</li>
+    <li>Email :{{ reservation.user.email }}</li>
+</ul>
+
+<h3>Réservation</h3>
+<h4>N° de réservation :{{ reservation.id }}</h4>
+<h4>liste des items</h4>
+<ul>
+    {% for item in reservationItems %}
+        <li>{{ item.creation.name }}/{{ item.creation.category.name }}</li>
+    {% endfor %}
+</ul>
+<p>
+    <strong>Message:</strong> <br>
+    {{ data.message | nl2br }}
+</p>
