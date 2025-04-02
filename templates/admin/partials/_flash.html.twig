@@ -1,0 +1,5 @@
+{% for label, messages in app.flashes %}
+    <div class="my-2 alert alert-{{ label }}">
+        {{ messages | join('. ') }}
+    </div>
+{% endfor %}

@@ -1,0 +1,20 @@
+<div class="form-group mb-3">
+    <form action="{{ path( 'admin.orders.index' ,
+        {filterOrder: 'filterOrder',filterUsernameOrEmail:'filterUsernameOrEmail',filterStatus : 'filterStatus'} ) }}"
+          method="get"
+          class="d-flex justify-content-center">
+        <div class="d-flex px-2 bg-white rounded-5 ">
+            <input type="text" id="filterOrder" name="filterOrder" value="" class="form-control border-0 me-1"
+                   placeholder="N° commandes">
+            <input type="text" id="filterUsernameOrEmail" name="filterUsernameOrEmail" value=""
+                   class="form-control border-0" placeholder="Pseudo">
+            <select name="filterStatus" id="filterStatus" class="form-select border-0 ">
+                <option value="all" {{ filterStatus == null ? 'selected' : '' }}>Tous</option>
+                <option value="pending" {{ filterStatus == "pending" ? 'selected' : '' }}>Pending</option>
+                <option value="paid" {{ filterStatus == "paid" ? 'selected' : '' }}>Paid</option>
+                <option value="delivered" {{ filterStatus == "delivered" ? 'selected' : '' }}>Delivered</option>
+            </select>
+            <button class="btn btn-light mx-1" type="submit"><i class="bi bi-search"></i></button>
+        </div>
+    </form>
+</div>

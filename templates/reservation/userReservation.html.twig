@@ -1,0 +1,123 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Mes reservations'%}
+
+{% block body %}
+    <section class="container">
+        <h1 class="my-2 text-center">Mes réservations</h1>
+        {% if not reservations %}
+            <p class="text-center">Aucune réservation</p>
+        {% endif %}
+        <div class="row col-lg-8 gap-2 mx-auto mb-3">
+            {% for reservation in reservations %}
+                {% if reservation.status == 'pending' %}
+                    <div class="card shadow-sm mb- order-0 rounded-4">
+                        <h5 class="card-header bg-warning border border-1 text-center rounded-3 mt-2 p-2">réservation en cours</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-1 d-none d-md-block">
+                                        Id
+                                    </div>
+                                    <div class="col-md-3 col-4">
+                                        Date
+                                    </div>
+                                    <div class="col-2 d-none d-md-block">
+                                        Item
+                                    </div>
+                                    <div class="col-md-2 col-4">
+                                        Statut
+                                    </div>
+                                    <div class="col-4">
+                                        Actions
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-1 d-none d-md-block">
+                                        {{ reservation.id }}
+                                    </div>
+                                    <div class="col-md-3 col-4">
+                                        {{ reservation.createdAt|date("m/d/y") }}
+                                    </div>
+                                    <div class="col-2 d-none d-md-block">
+                                        {{ reservation.reservationItems.count }}
+                                    </div>
+                                    <div class="col-md-2 col-4">
+                                        {{ reservation.status }}
+                                    </div>
+                                    <div class="col-4 d-flex gap-1">
+                                        {% if reservation.reservationItems.count != 0 %}
+                                            <a href="{{ path('reservations.finalise', {id : reservation.id}) }}"
+                                               class="btn btn-primary btn-sm">finaliser</a>
+                                        {% endif %}
+                                        <a href="{{ path('reservations.remove', {id: reservation.id}) }}"
+                                           class="btn btn-danger btn-sm">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                 fill="currentColor"
+                                                 class="bi bi-trash3" viewBox="0 0 16 16">
+                                                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+            <div class="card shadow-sm order-1 rounded-4">
+                <h5 class="card-header bg-warning border border-1 text-center rounded-3 mt-2 p-2">Réservation effectuées</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row align-items-center">
+                            <div class="col-1 d-none d-md-block">
+                                Id
+                            </div>
+                            <div class="col-md-3 col-4">
+                                Date
+                            </div>
+                            <div class="col-2 d-none d-md-block">
+                                Item
+                            </div>
+                            <div class="col-md-2 col-4">
+                                Statut
+                            </div>
+                            <div class="col-4">
+                                Actions
+                            </div>
+                        </div>
+                    </li>
+                    {% for reservation in reservations %}
+                        {% if reservation.status!= 'pending' %}
+                            <li class="list-group-item">
+                                <div class="row align-items-center">
+                                    <div class="col-1 d-none d-md-block">
+                                        {{ reservation.id }}
+                                    </div>
+                                    <div class="col-md-3 col-4">
+                                        {{ reservation.createdAt|date("m/d/y") }}
+                                    </div>
+                                    <div class="col-2 d-none d-md-block">
+                                        {{ reservation.reservationItems.count }}
+                                    </div>
+                                    <div class="col-md-2 col-4">
+                                        {{ reservation.status }}
+                                    </div>
+                                    <div class="col-4">
+                                        <a href="{{ path('reservations.show', {id : reservation.id}) }}"
+                                           class="btn btn-primary btn-sm">
+                                            Detail
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}

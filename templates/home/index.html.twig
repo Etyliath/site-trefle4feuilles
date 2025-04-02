@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Accueil' %}
+
+{% block body %}
+
+    <section class="container mt-4">
+        <div class="d-flex justify-content-evenly align-items-center">
+            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="32">
+            <h1 class="text-center">Bienvenue au trèfle à 4 feuilles</h1>
+            <img src="{{ asset('images/logo.png') }}" class="d-inline" alt="" height="32">
+        </div>
+        <div class="container mt-2" style="max-width: 500px;">
+            {% include 'home/partials/_carousel.html.twig' %}
+        </div>
+        <div class="d-flex flex-column align-items-center mt-4">
+            <a href="{{ path('creations.index') }}" class="btn btn-primary">En voir plus</a>
+            <p class="mt-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, aperiam assumenda commodi
+                distinctio
+                eaque enim explicabo facere hic laborum minima necessitatibus quasi quod recusandae reiciendis
+                repudiandae sequi sint vitae voluptates?</p>
+        </div>
+    </section>
+
+{% endblock %}

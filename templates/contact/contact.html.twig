@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez moi{% endblock %}
+
+{% block body %}
+    <section class="container mb-3 d-flex flex-column justify-content-center">
+        <div class="mt-4 d-flex flex-column align-items-center">
+            <h1>Me contacter</h1>
+            <img src="{{ asset('images/logo.png') }}" class="d-inline my-3" alt="" height="48">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A earum ex illo laboriosam magnam placeat
+                praesentium, reprehenderit repudiandae sequi sint tempora velit, veniam voluptatum? A ad dolor mollitia
+                soluta tempora.</p>
+        </div>
+        <div class="d-flex flex-column flex-md-row justify-content-center justify-content-md-around">
+            <div class="container">
+                {{ form_start(form) }}
+                <h2 class="text-center">Formulaire de contact</h2>
+                <div class="bg-gradient shadow rounded-4 p-3">
+                    <div class="row">
+                        <div class="col-sm">{{ form_row(form.name) }}</div>
+                        <div class="col-sm">{{ form_row(form.email) }}</div>
+                    </div>
+                    {{ form_rest(form) }}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary">envoyer</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+            </div>
+            <div class="d-flex flex-column container-fluid align-items-center align-self-start mt-3 mt-md-0">
+                <h2>Mes coordonées</h2>
+                <div class="d-flex mx-2 flex-column gap-2 bg-gradient rounded-4 shadow p-3 ">
+                    <div class="bg-white bg-opacity-75 rounded-4 p-2">
+                        <p class="mb-0 fw-semibold ">Sylvie DA SILVA</p>
+                        <p class="mb-0">Niort, Deux-Sèvres</p>
+                    </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d88163.59943352717!2d-0.5438914682729978!3d46.32746102479584!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4807303211d686f5%3A0x405d39260e82ac0!2s79000%20Niort!5e0!3m2!1sfr!2sfr!4v1738951654964!5m2!1sfr!2sfr"
+                            class="mx-auto rounded-4"
+                            width="300" height="200" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div class="bg-white rounded-4 bg-opacity-75 d-flex flex-column gap-2 p-2">
+                        <a href="https://www.instagram.com/le__trefle_a_4_feuilles/profilecard/?igsh=bGI3dmk0NG1sYnd4"
+                           target="_blank" class="text-decoration-none link-dark me-2">
+                            <i class="bi bi-instagram"> Instagram</i>
+                        </a>
+                        <a href="" class="me-2 text-decoration-none link-dark text-center text-sm-start">
+                            <i class="bi bi-facebook"> Facebook</i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="d-flex justify-content-center ">
+            <img src="{{ asset('images/logo.png') }}" class="d-inline my-3" alt="" height="48">
+        </div>
+    </section>
+{% endblock %}

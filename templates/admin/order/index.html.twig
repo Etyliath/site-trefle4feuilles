@@ -1,0 +1,76 @@
+{% extends 'admin/admin.html.twig' %}
+{% block title 'Liste de la commande' %}
+
+{% block body %}
+
+    <section class="container mt-4" data-controller="orderModal">
+        <h1>Mes ventes</h1>
+        {% include 'admin/order/partials/_modalDetailOrder.html.twig' %}
+        {% include 'admin/order/partials/_search.html.twig' %}
+        <div class="">
+            <table class="table align-middle">
+                <thead>
+                <tr>
+                    <th>{{ knp_pagination_sortable(orders,'ID','o.id') }}</th>
+                    <th class="d-none  d-md-table-cell">{{ knp_pagination_sortable(orders,'Pseudo','u.username') }}</th>
+                    <th class="d-none  d-md-table-cell">Date</th>
+                    <th>Statut</th>
+                    <th class="text-center">Detail</th>
+                    <th class="">Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>{{ order.id }}</td>
+                        <td class="d-none  d-md-table-cell">{{ order.user.username }}</td>
+                        <td class="d-none  d-md-table-cell">{{ order.createdAt|date("d-m-y") }}</td>
+                        <td>{{ order.status }}</td>
+                        <td class="text-center">
+                            <a href="{{ path('admin.orders.items.index', {id: order.id}) }}"
+                               class="btn btn-info ">{{ order.orderItems.count }}</a>
+                        </td>
+                        <td class="align-middle">
+                            <div class="d-flex align-items-center justify-content-evenly">
+                                {% if order.status == 'paid' %}
+                                    <form action="{{ path('admin.orders.delivered', {id: order.id}) }}" method="post"
+                                          onsubmit="return confirm('do you want to confirm delivery?')">
+                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm">Deliver</button>
+                                    </form>
+                                {% endif %}
+                                {% if order.status == 'delivered' %}
+                                    <span class="text-success text-wrap">Delivered</span>
+                                {% endif %}
+                                {% if  order.status == 'pending' %}
+                                    <form action="{{ path('orders.remove', {id : order.id}) }}" method="post"
+                                          onsubmit="return confirm('Are you sure to remove order {{ order.id }}?')">
+                                        <button type="submit" class="btn btn-danger btn-sm shadow-sm">Remove</button>
+                                    </form>
+                                {% endif %}
+                                <!-- Button trigger modal Order -->
+                                <button type="button" class="open-modal-order border-0 bg-white"
+                                        data-id="{{ order.id }}"
+                                        data-created_at="{{ order.createdAt|date("d M Y H:m", "Europe/Paris") }}"
+                                        data-username="{{ order.user.username }}"
+                                        data-email="{{ order.user.email }}"
+                                        data-instruction="{{ order.instruction }}"
+                                        data-bs-toggle="modal" data-bs-target="#orderModal">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+

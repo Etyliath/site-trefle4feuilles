@@ -1,0 +1,30 @@
+{% extends 'admin/admin.html.twig' %}
+{% block title 'refuser réservation' %}
+
+{% block body %}
+
+    <section class="container mt-4" >
+        <h1 class="text-center mb-3">Refus de reservation</h1>
+        <a href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}"
+           class="btn btn-info ">Annuler</a>
+        <h4>informations client</h4>
+        <div class="border-1 bg-light rounded-4 py-1 px-3 border-light">
+            <p class="fst-italic"> <span class="fw-bold">demandeur : </span> {{ reservation.user.firstname }} {{ reservation.user.lastname }}</p>
+            <p class="fst-italic"> <span class="fw-bold">Email : </span> {{ reservation.user.email }} </p>
+        </div>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        {{ form_row(form.message) }}
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">Envoyer</button>
+            <a href="{{ path('admin.reservation.items.index', {id: reservation.id}) }}"
+               class="btn btn-info d-inline-flex">Annuler</a>
+        </div>
+        {{ form_end(form) }}
+
+    </section>
+
+{% endblock %}
+
+
+

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title 'Profil' %}
+
+{% block body %}
+
+    <section class="container mt-2">
+        <h1 class="text-center">Modifier le profil</h1>
+        <h3>{{ app.user.username }}</h3>
+        {{ form(form) }}
+    </section>
+
+{% endblock %}

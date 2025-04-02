@@ -1,0 +1,15 @@
+
+{% for creation in creations %}
+<div class="card " style="width: 14rem;">
+    <img src="{{ vich_uploader_asset(creation,'thumbnailFile') }}" class="card-img-top"
+         alt="...">
+    <div class="card-body d-flex flex-column justify-content-evenly">
+        <h5 class="card-title">{{ creation.name }}</h5>
+        <p class="card-text">{{ creation.description|nl2br }}</p>
+        <p class="card-text">{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}</p>
+        <div class="mt-auto">
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+</div>
+{% endfor %}

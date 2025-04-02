@@ -1,0 +1,56 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Liste de la commande' %}
+
+{% block body %}
+
+    <div class="container">
+        <a href="{{ path('admin.orders.index')}}" class="btn btn-primary mt-3">Retour à la liste des commandes</a>
+        <div class="card shadow-sm mt-3">
+            <h5 class="text-center p-2 bg-warning m-0">Detail de la commande</h5>
+            <ul class="list-group list-group-flush">
+                {% set total = null %}
+                {% for orderItem in orderItems %}
+                    {% set total = total + orderItem.creation.price %}
+                    <li class="px-4 py-3 list-group-item" id="row-order-item-{{ orderItem.id }}">
+                        <div class="row">
+                            <div class="col-md-2 col-2">
+                                <img src="{{ vich_uploader_asset(orderItem.creation, 'thumbnailFile') }}"
+                                     height="24" alt="">
+                            </div>
+                            <div class="col-md-6 col-6">
+                                {{ orderItem.creation.name }}
+                            </div>
+                            <div class="text-lg-end text-start text-md-end col-md-3 col-3">
+                                {{ (orderItem.creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}
+                            </div>
+
+                            {% if  orderItem.ordering.status == 'pending' %}
+                                <div class="col-md-1 col-1">
+                                    <a href="{{ path('orders.remove.orderItem', {id : orderItem.id}) }}"
+                                       class="text-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
+                                             class="bi bi-trash3" viewBox="0 0 16 16">
+                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            {% endif %}
+
+                        </div>
+                    </li>
+                {% endfor %}
+                <div class="px-4 py-3 list-group-item bg-info">
+                    <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
+                        <div>
+                            <span class="">Tolal</span>
+                            <span class="text-dark-emphasis opacity-50">(TVA incluse)</span>
+                        </div>
+                        <div class="pe-md-3 pe-4">{{ (total/100)|format_currency('EUR', {rounding_mode: 'floor'}) }}</div>
+                    </div>
+                </div>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

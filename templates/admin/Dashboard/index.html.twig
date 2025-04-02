@@ -1,0 +1,44 @@
+{% extends 'admin/admin.html.twig' %}
+
+{% block title 'Dashboard' %}
+
+{% block body %}
+    <section class="container mt-4">
+        <div class="row justify-content-center justify-content-md-between align-items-center">
+            <h1 class="ms-5 col-1 col-md-3 text-center">Dashboard</h1>
+            <div class="my-2 col-md-6 rounded-2 bg-warning bg-opacity-75 shadow" style="height: 75px">
+                <p class="mt-2 mx-1 text-center">Bienvenue <strong>{{ app.user.username }}</strong><br>
+                    Gestion des créations de Sylvie
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="container mt-4">
+        <div class="shadow m-3 bg-secondary bg-opacity-25 rounded p-3">
+            <h2 class="text-center mb-4">Journal des événements</h2>
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Commentaire à valider</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p>Il y a actuellmennt {{ numberCommentToValidate }} à valider </p>
+                    <a href="{{ path( 'admin.comments.index' ) }}" class="btn btn-primary">Voir la liste des commentaires</a>
+                </div>
+
+            </div>
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Commandes</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p> Il y a {{ numberOrdersNoDelivered }} commandes en cours </p>
+                    <a href="{{ path( 'admin.orders.index' ) }}" class="btn btn-primary">Voir la liste des commandes</a>
+                </div>
+            </div>
+            <div class="shadow m-2 bg-warning bg-opacity-75 rounded p-2">
+                <h3>Réservation</h3>
+                <div class="d-flex flex-column flex-md-row align-items-baseline gap-3 justify-content-between px-2">
+                    <p> Il y a {{ numberReservationNoDelivered }} Réservation en cours </p>
+                    <a href="{{ path( 'admin.reservations.index' ) }}" class="btn btn-primary">Voir la liste des réservations</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

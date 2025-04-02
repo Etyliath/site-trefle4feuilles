@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les créations{% endblock %}
+
+{% block body %}
+    <div class="d-flex flex-column flex-lg-row mb-3">
+        <section class="container mx-lg-3 mt-4 mb-lg-4">
+            <a href="{{ path('creations.index')}}" class="btn btn-primary mb-3 mt-1">Retour à la liste des créations</a>
+
+            <h3 class="text-center">{{ creation.name }}</h3>
+            <div class="card mx-auto mb-3 mt-1 p-2 rounded-4">
+                <div class="row g-2">
+                    <div class="col-12 col-md-6 text-center position-relative">
+                        <img src="{{ vich_uploader_asset(creation, 'thumbnailFile') }}" class="img-fluid rounded-start"
+                             style="max-height: 340px"
+                             alt="...">
+                    </div>
+                    <div class="card-body col-md-6 d-flex flex-column ">
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">{{ creation.name }}</h5>
+                        </div>
+                        <p class="card-text my-2">{{ creation.description|nl2br }}</p>
+                        <div class="card-text mt-auto">
+                            {% if not creation.sold %}
+                                <div class="d-flex mt-4 mt-md-1 justify-content-center">
+                                    <a href="{{ path('cart.add', {id: creation.id}) }}" class="mb-3 btn btn-primary">Intéresser</a>
+                                </div>
+                                {% if is_granted('ROLE_BETA') %}
+                                    <div class="d-flex justify-content-center mt-4 mt-md-1">
+                                        <p class="card-text text-success card-price">
+                                            <span class="fw-light fst-italic">Prix: </span>{{ (creation.price/100) | format_currency('EUR', {rounding_mode: 'floor'}) }}
+                                        </p>
+                                        <a href="{{ path('cart.add', {id: creation.id}) }}"
+                                           class="ms-auto float-end btn btn-primary">Ajouter
+                                            au panier</a>
+                                    </div>
+                                {% else %}
+
+                                {% endif %}
+                            {% else %}
+                                <p class="fst-italic fw-bold bg-warning rounded-2 p-1">
+                                    Cette création n'est plus disponible
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% if not creation.sold %}
+                    <p class="fst-italic small mt-auto mb-0"><span class="fw-bold fs-5">*</span> Si vous êtes intéresser
+                        cliquez sur le bouton ci-dessus
+                        <br> la création sera ajouter au panier</p>
+                {% endif %}
+            </div>
+            <p class="small mb-2 fst-italic lh-sm d-inline"><span class="fw-bold fs-5">*</span>
+                Pour l'instant il n'est pas possible de faire des
+                achats sur le site mais la fonctionnalité est prévu dans une futur évolution</p>
+        </section>
+        <section class="container d-flex flex-column align-items-center mt-4">
+            <h3 class="text-center">Les commentaires</h3>
+            {% if comments %}
+                <div class="container border border-1 p-2 border-success rounded-3 my-3">
+                    {% for comment in comments %}
+                        <div class="mb-1 bg-white p-2 rounded-3">
+                            <h6 class="fw-bold mt-2 border-bottom border-2 border-success pb-1 bord">{{ comment.createdAt|date("d-m-y", "Europe/Paris") }}
+                                - {{ comment.user.username }}</h6>
+                            <p class="">{{ comment.message|nl2br }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <a href="{{ path('comment.new', {id: creation.id}) }}" class="btn btn-primary mt-2 mt-md-3">Ajouter un
+                commentaire</a>
+        </section>
+
+    </div>
+
+{% endblock %}
