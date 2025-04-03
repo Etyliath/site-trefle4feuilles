@@ -15,7 +15,7 @@
                     <th class="d-none  d-md-table-cell">{{ knp_pagination_sortable(orders,'Pseudo','u.username') }}</th>
                     <th class="d-none  d-md-table-cell">Date</th>
                     <th>Statut</th>
-                    <th class="text-center">Detail</th>
+                    <th class="text-center">Détail</th>
                     <th class="">Actions</th>
                 </tr>
                 </thead>
@@ -35,7 +35,7 @@
                                 {% if order.status == 'paid' %}
                                     <form action="{{ path('admin.orders.delivered', {id: order.id}) }}" method="post"
                                           onsubmit="return confirm('do you want to confirm delivery?')">
-                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm">Deliver</button>
+                                        <button type="submit" class="btn btn-warning btn-sm shadow-sm">Livrer</button>
                                     </form>
                                 {% endif %}
                                 {% if order.status == 'delivered' %}
@@ -44,7 +44,7 @@
                                 {% if  order.status == 'pending' %}
                                     <form action="{{ path('orders.remove', {id : order.id}) }}" method="post"
                                           onsubmit="return confirm('Are you sure to remove order {{ order.id }}?')">
-                                        <button type="submit" class="btn btn-danger btn-sm shadow-sm">Remove</button>
+                                        <button type="submit" class="btn btn-danger btn-sm shadow-sm">Supprimer</button>
                                     </form>
                                 {% endif %}
                                 <!-- Button trigger modal Order -->
