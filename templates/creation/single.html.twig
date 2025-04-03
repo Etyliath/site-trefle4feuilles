@@ -22,9 +22,6 @@
                         <p class="card-text my-2">{{ creation.description|nl2br }}</p>
                         <div class="card-text mt-auto">
                             {% if not creation.sold %}
-                                <div class="d-flex mt-4 mt-md-1 justify-content-center">
-                                    <a href="{{ path('cart.add', {id: creation.id}) }}" class="mb-3 btn btn-primary">Intéresser</a>
-                                </div>
                                 {% if is_granted('ROLE_BETA') %}
                                     <div class="d-flex justify-content-center mt-4 mt-md-1">
                                         <p class="card-text text-success card-price">
@@ -35,7 +32,9 @@
                                             au panier</a>
                                     </div>
                                 {% else %}
-
+                                    <div class="d-flex mt-4 mt-md-1 justify-content-center">
+                                        <a href="{{ path('cart.add', {id: creation.id}) }}" class="mb-3 btn btn-primary">Intéresser</a>
+                                    </div>
                                 {% endif %}
                             {% else %}
                                 <p class="fst-italic fw-bold bg-warning rounded-2 p-1">

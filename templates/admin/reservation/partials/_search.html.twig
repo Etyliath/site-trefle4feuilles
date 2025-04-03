@@ -10,9 +10,9 @@
                    class="form-control border-0" placeholder="Pseudo">
             <select name="filterStatus" id="filterStatus" class="form-select border-0 ">
                 <option value="all" {{ filterStatus == null ? 'selected' : '' }}>Tous</option>
-                <option value="pending" {{ filterStatus == "pending" ? 'selected' : '' }}>Pending</option>
-                <option value="paid" {{ filterStatus == "paid" ? 'selected' : '' }}>Paid</option>
-                <option value="delivered" {{ filterStatus == "delivered" ? 'selected' : '' }}>Delivered</option>
+                <option value="pending" {{ filterStatus == "pending" ? 'selected' : '' }}>En attente</option>
+                <option value="reserved" {{ filterStatus == "reserved" ? 'selected' : '' }}>Réserver</option>
+                <option value="delivered" {{ filterStatus == "delivered" ? 'selected' : '' }}>Livrer</option>
             </select>
             <button class="btn btn-light mx-1" type="submit"><i class="bi bi-search"></i></button>
         </div>
