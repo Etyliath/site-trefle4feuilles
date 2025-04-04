@@ -55,7 +55,7 @@ class ProfileController extends AbstractController
         $user->setPassword($hasher->hashPassword($user, 'password'));
         $manager->persist($user);
         $manager->flush();
-        $this->addFlash('success', 'Mot de passe modifier avec success');
+        $this->addFlash('success', 'Mot de passe modifier avec succès');
         return $this->redirectToRoute('home');
     }
 
@@ -66,7 +66,7 @@ class ProfileController extends AbstractController
         $user->setRoles(['ROLE_ADMIN']);
         $manager->persist($user);
         $manager->flush();
-        $this->addFlash('success', 'roles admin affecté avec success');
+        $this->addFlash('success', 'roles admin affecté avec succès');
         return $this->redirectToRoute('profile.listUsers');
     }
 
@@ -81,6 +81,8 @@ class ProfileController extends AbstractController
         $manager->persist($user);
         $manager->flush();
 
+        $this->addFlash('success', 'roles admin a été retiré avec succès');
+
         return $this->redirectToRoute('profile.listUsers');
     }
 
@@ -93,7 +95,7 @@ class ProfileController extends AbstractController
         $user->setRoles($roles);
         $manager->persist($user);
         $manager->flush();
-        $this->addFlash('success', 'role beta affecté avec success');
+        $this->addFlash('success', 'role beta affecté avec succès');
         return $this->redirectToRoute('profile.listUsers');
     }
 
@@ -107,6 +109,7 @@ class ProfileController extends AbstractController
         $user->setRoles($roles);
         $manager->persist($user);
         $manager->flush();
+        $this->addFlash('success', 'role beta a été retiré avec succès');
         return $this->redirectToRoute('profile.listUsers');
     }
 }
