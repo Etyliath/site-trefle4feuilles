@@ -10,7 +10,7 @@
 
 <h3>Réservation</h3>
 <h4>N° de réservation :{{ reservation.id }}</h4>
-<h4>liste des items</h4>
+<h4>liste des articles</h4>
 <ul>
     {% for item in reservationItems %}
     <li>{{ item.creation.name }}/{{ item.creation.category.name }}</li>
