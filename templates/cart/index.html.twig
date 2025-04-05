@@ -12,7 +12,43 @@
                         <strong>{{ order.id }}</strong></p>
                 {% endif %}
 
-
+                <div class="table-responsive rounded-3">
+                    <table class="table align-middle">
+                        <tbody>
+                        {% for item in cart %}
+                        <tr>
+                            <td>
+                                <img class="col-2" src="{{ vich_uploader_asset(item.creation, 'thumbnailFile') }}"
+                                     alt="">
+                            </td>
+                            <td class="text-center w-25">
+                                {{ item.creation.name }}
+                            </td>
+                            <td class="text-center px-4">
+                                <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="text-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-trash3" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                        {% endfor %}
+                        <tfoot>
+                        <tr>
+                            <td colspan="3" class="">Nombre d'articles :
+                                <strong>{{ app.session.get('cart')|length }}</strong>
+                            </td>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <div class="d-flex gap-5 mt-2 mb-1 justify-content-between">
+                        <a href="{{ path('creations.index') }}" class="btn btn-sm btn btn-secondary">Retout aux
+                            créations</a>
+                        <a href="{{ path('cart.clear') }}" class="btn btn-sm btn btn-danger">Vider le panier</a>
+                    </div>
+                </div>
                 {% if is_granted('ROLE_BETA') %}
                     <div class="table-responsive rounded-3">
                         <table class="table align-middle">
@@ -33,7 +69,8 @@
                                 </td>
                                 <td class="text-center px-4">
                                     <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="text-danger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                             fill="currentColor"
                                              class="bi bi-trash3" viewBox="0 0 16 16">
                                             <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
                                         </svg>
@@ -72,55 +109,17 @@
                         </a>
                     {% endif %}
                 {% else %}
-                    <div class="table-responsive rounded-3">
-                        <table class="table align-middle">
-                            <tbody>
-                            {% for item in cart %}
-                            <tr>
-                                <td>
-                                    <img class="col-2" src="{{ vich_uploader_asset(item.creation, 'thumbnailFile') }}"
-                                         alt="">
-                                </td>
-                                <td class="text-center w-25">
-                                    {{ item.creation.name }}
-                                </td>
-                                <td class="text-center px-4">
-                                    <a href="{{ path('cart.remove', {id: item.creation.id}) }}" class="text-danger">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                             class="bi bi-trash3" viewBox="0 0 16 16">
-                                            <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                                        </svg>
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                            {% endfor %}
-                            <tfoot>
-                            <tr >
-                                <td colspan="3" class="">Nombre d'articles :
-                                    <strong>{{ app.session.get('cart')|length }}</strong>
-                                </td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                        <div class="d-flex gap-5 mt-2 mb-1 justify-content-between">
-                            <a href="{{ path('creations.index') }}" class="btn btn-sm btn btn-secondary">Retout aux
-                                créations</a>
-                            <a href="{{ path('cart.clear') }}" class="btn btn-sm btn btn-danger">Vider le panier</a>
-                        </div>
-                    </div>
                     {% if reservation %}
-                        <a href="{{ path('reservations.create') }}" data-turbo="false"
+                        <a href="{{ path('reservations.create') }}"
                            class="btn btn-primary btn-sm ms-auto mb-2">
                             Ajouter à la reservation
                         </a>
                     {% else %}
-                        <a href="{{ path('reservations.create') }}" data-turbo="false"
+                        <a href="{{ path('reservations.create') }}"
                            class="btn btn-primary btn-sm ms-auto mb-2">
                             Faire la reservation
                         </a>
                     {% endif %}
-
                 {% endif %}
 
 

@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\DTO\ReservationRefusedDTO;
+use App\Entity\Creation;
+use App\Entity\ReservationItem;
 use App\Form\ReservationRefusedType;
 use App\Entity\Reservation;
 use App\Repository\ReservationRepository;
@@ -55,6 +57,33 @@ class ReservationController extends AbstractController
         $reservation->setStatus('delivered');
         $em->persist($reservation);
         $em->flush();
+        return $this->redirectToRoute('admin.reservations.index');
+    }
+
+    #[Route('/{id}/remove', name: 'remove', methods: ['GET', 'POST'])]
+    public function remove(Reservation $reservation, EntityManagerInterface $em, MailerInterface $mailer): Response
+    {
+        $reservationItems = $em->getRepository(ReservationItem::class)->findReservationItemByReservationId($reservation->getId());
+        $message = 'reservation refusé';
+        $mail = (new TemplatedEmail())
+            ->to('edouard.developpement@free.fr')
+            ->from($reservation->getUser()->getEmail())
+            ->subject('Votre reservation a été modifiée')
+            ->htmlTemplate('emails/reservationRefused.html.twig')
+            ->context([
+                'message' => $message,
+                'reservation' => $reservation,
+                'reservationItems' => $reservation->getReservationItems()
+            ]);;
+        $mailer->send($mail);
+        foreach ($reservationItems as $reservationItem) {
+            $em->getRepository(Creation::class)->find($reservationItem->getCreation()->getId())->setSold(false);
+            $em->remove($reservationItem);
+            $em->flush();
+        }
+        $em->remove($reservation);
+        $em->flush();
+
         return $this->redirectToRoute('admin.reservations.index');
     }
 }

@@ -50,24 +50,34 @@ class ReservationItemController extends AbstractController
             $em->flush();
             if ($reservation->getReservationItems()->count() === 0){
                 $em->remove($reservation);
+                $message = $data->message;
                 $mail = (new TemplatedEmail())
                     ->to('edouard.developpement@free.fr')
                     ->from($reservation->getUser()->getEmail())
                     ->subject('votre reservation à été annulé')
                     ->htmlTemplate('emails/reservationRefused.html.twig')
-                    ->context(['data' => $data]);;
+                    ->context([
+                        'message' => $message,
+                        'reservation' => $reservation,
+                        'reservationItems' => $reservation->getReservationItems()
+                    ]);;
                 $mailer->send($mail);
             }
             else{
                 $reservation->setUpdatedAt(new \DateTimeImmutable());
                 $em->persist($reservation);
                 $em->flush();
+                $message = $data->message;
                 $mail = (new TemplatedEmail())
                     ->to('edouard.developpement@free.fr')
                     ->from($reservation->getUser()->getEmail())
                     ->subject('Votre reservation a été modifiée')
                     ->htmlTemplate('emails/reservationRefused.html.twig')
-                    ->context(['data' => $data]);;
+                    ->context([
+                        'message' => $message,
+                        'reservation' => $reservation,
+                        'reservationItems' => $reservation->getReservationItems()
+                    ]);;
                 $mailer->send($mail);
             }
 
