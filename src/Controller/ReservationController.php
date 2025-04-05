@@ -117,6 +117,27 @@ class ReservationController extends AbstractController
             $em->flush();
             $message = 'Reservation updated';
         }
+        $form = $this->createForm(ReservationType::class, $reservation);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reservation->setStatus('reserved');
+            $em->persist($reservation);
+            $em->flush();
+            $reservationItemsMail = $em->getRepository(ReservationItem::class)->findReservationItemByReservationId($reservation->getId());
+
+            $mail = (new TemplatedEmail())
+                ->to('edouard.developpement@free.fr')
+                ->from($reservation->getUser()->getEmail())
+                ->subject('une reservation à été effectué')
+                ->htmlTemplate('emails/reservation.html.twig')
+                ->context([
+                    'reservation' => $reservation,
+                    'reservationItems' => $reservationItemsMail
+                ]);;
+            $mailer->send($mail);
+            $message = 'Reservation send';
+        }
+
         foreach ($cart as $item) {
             $ReservationItem = new ReservationItem();
             $creation = $em->getRepository(Creation::class)->find($item->getId());
@@ -126,34 +147,8 @@ class ReservationController extends AbstractController
             $em->flush();
         }
         $reservationItems = $em->getRepository(ReservationItem::class)->findReservationItemByReservationId($reservation->getId());
-
-        $form = $this->createForm(ReservationType::class, $reservation);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $reservation->setStatus('reserved');
-            $em->persist($reservation);
-            $em->flush();
-            $mail = (new TemplatedEmail())
-                ->to('edouard.developpement@free.fr')
-                ->from($reservation->getUser()->getEmail())
-                ->subject('une reservation à été effectué')
-                ->htmlTemplate('emails/reservation.html.twig')
-                ->context([
-                    'reservation' => $reservation,
-                    'reservationItems' => $reservationItems
-                ]);;
-            $mailer->send($mail);
-            $message = 'Reservation send';
-        }
-
-
-
         $this->cartService->clearCart();
         $this->addFlash('success', $message);
-
-
-
-
         return $this->render('reservation/index.html.twig', [
             'reservation' => $reservation,
             'form' => $form,

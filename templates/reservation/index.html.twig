@@ -85,12 +85,14 @@
                                         </div>
                                     </li>
                                 {% endfor %}
-                                <div class="px-4 py-3 mt-2 rounded-3 list-group-item bg-info">
-                                    <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
-                                        <div>Nombre d'articles</div>
-                                        <div class="">{{ reservation.reservationItems.count }}</div>
+                                {% if reservation.reservationItems.count > 0 %}
+                                    <div class="px-4 py-3 mt-2 rounded-3 list-group-item bg-info">
+                                        <div class="d-flex align-items-end justify-content-between mb-2 fw-bold">
+                                            <div>Nombre d'articles</div>
+                                            <div class="">{{ reservation.reservationItems.count }}</div>
+                                        </div>
                                     </div>
-                                </div>
+                                {% endif %}
                             </ul>
                         </div>
                         <div class="text-end mt-3">

@@ -37,7 +37,7 @@
                                 {% if reservation.status == 'reserved' %}
                                     <form action="{{ path('admin.reservations.validated', {id: reservation.id}) }}"
                                           method="post"
-                                          onsubmit="return confirm('do you want to confirm validation?')">
+                                          onsubmit="return confirm('confirmer la validation?')">
                                         <button type="submit" class="btn btn-success btn-sm shadow-sm">
                                             Valider
                                         </button>
@@ -46,7 +46,7 @@
                                 {% if reservation.status == 'validated' %}
                                     <form action="{{ path('admin.reservations.delivered', {id: reservation.id}) }}"
                                           method="post"
-                                          onsubmit="return confirm('do you want to confirm delivery?')">
+                                          onsubmit="return confirm('confirmer la livraison?')">
                                         <button type="submit" class="btn btn-warning btn-sm shadow-sm">
                                             Livrer
                                         </button>
@@ -63,6 +63,13 @@
                                         data-bs-toggle="modal" data-bs-target="#reservationModal">
                                     voir
                                 </button>
+                                <form action="{{ path('admin.reservations.remove', {id: reservation.id}) }}"
+                                      method="post"
+                                      onsubmit="return confirm('Confirmer la suppression?')">
+                                    <button type="submit" class="btn btn-warning btn-sm shadow-sm">
+                                        Supprimer
+                                    </button>
+                                </form>
                             </div>
                         </td>
                     </tr>
