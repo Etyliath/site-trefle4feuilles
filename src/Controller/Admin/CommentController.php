@@ -13,6 +13,10 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Manages admin operations for comments, including listing comments, validating them,
+ * and performing deletion actions.
+ */
 #[isGranted("ROLE_ADMIN")]
 #[Route('/admin/comments', name: 'admin.comments.')]
 class CommentController extends AbstractController
@@ -42,7 +46,7 @@ class CommentController extends AbstractController
             $comment->setValidated(true);
             $em->persist($comment);
             $em->flush();
-            $this->addFlash('success', 'Comment validated');
+            $this->addFlash('success', 'Commentaire validaté');
 //            return new JsonResponse(['message' => 'Comment validated'], Response::HTTP_OK);
             return $this->redirectToRoute('admin.comments.index');
         }
@@ -57,7 +61,7 @@ class CommentController extends AbstractController
         if ($comment) {
             $em->remove($comment);
             $em->flush();
-            $this->addFlash('success', 'Comment deleted successfully');
+            $this->addFlash('success', 'Commentaire a bien été supprimer');
             return new jsonResponse(['message'=>'Comment delete'], Response::HTTP_OK);
         }
         return new JsonResponse(['message' => 'Comment not found'], Response::HTTP_NOT_FOUND);

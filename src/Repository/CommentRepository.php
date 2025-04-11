@@ -19,6 +19,15 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * Paginates a filtered list of comments based on the provided criteria.
+     *
+     * @param int $page The current page number for pagination.
+     * @param bool|null $validated Filter by validated status; true for validated, false for unvalidated, null for no filtering.
+     * @param string|null $name A name to filter comments by matching user username or email; null for no filtering.
+     *
+     * @return PaginationInterface The paginated comments matching the criteria.
+     */
     public function paginatedCommentFiltered(int $page, bool|null $validated, string|null $name): PaginationInterface
     {
         $qb = $this->createQueryBuilder('c');

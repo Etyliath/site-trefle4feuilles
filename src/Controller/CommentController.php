@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Controller responsible for handling operations related to comments.
+ */
+
 namespace App\Controller;
 
 use App\Entity\Comment;
@@ -13,6 +17,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+
+/**
+ * Controller for managing comment-related actions.
+ */
 #[Route('/comment', name: 'comment.')]
 class CommentController extends AbstractController
 {

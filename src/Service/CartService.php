@@ -6,6 +6,9 @@ use App\Entity\Creation;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
+/**
+ * Handles operations related to the shopping cart, including adding, removing, and managing items in the cart.
+ */
 class CartService
 {
     public function __construct(
