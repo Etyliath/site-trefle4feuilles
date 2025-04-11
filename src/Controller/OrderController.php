@@ -17,6 +17,9 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Turbo\TurboBundle;
 
+/**
+ * Controller for handling orders.
+ */
 #[isGranted("ROLE_USER")]
 #[Route('/orders', name: 'orders.')]
 class OrderController extends AbstractController
@@ -46,6 +49,21 @@ class OrderController extends AbstractController
         ]);
     }
 
+    /**
+     * Handles the order finalization process.
+     *
+     * Retrieves order items associated with the given order, creates and processes
+     * the order form. If the form is submitted and valid, the order data is stored
+     * in the session and the user is redirected to the payment page. Otherwise,
+     * renders the order page with the form and order details.
+     *
+     * @param Request $request The HTTP request object.
+     * @param Order $order The order entity to be processed.
+     * @param EntityManagerInterface $em The Doctrine entity manager for database operations.
+     * @param SessionInterface $session The session interface for managing session data.
+     *
+     * @return Response The HTTP response object.
+     */
     #[Route('/finalise/{id}', name: 'finalise', methods: ['GET', 'POST'])]
     public function finalise(Request $request, Order $order, EntityManagerInterface $em, SessionInterface $session): Response
     {
@@ -66,6 +84,9 @@ class OrderController extends AbstractController
         ]);
     }
 
+    /**
+     *
+     */
     #[Route('/user', name: 'user', methods: ['GET'])]
     public function showOrderUser(OrderRepository $orderRepository): Response
     {
@@ -77,6 +98,23 @@ class OrderController extends AbstractController
         ]);
     }
 
+    /**
+     * Handles the creation or updating of an order based on the user's cart items and request data.
+     *
+     * This method checks if a pending order exists for the logged-in user. If none exists,
+     * a new order is created with the status of 'pending'. If an order exists, its update
+     * timestamp is refreshed. The method uses a form to process additional order information.
+     *
+     * Cart items are iterated over, and for each item, an order item is created and persisted.
+     * After processing the cart items, the cart is cleared, and a success flash message is added.
+     *
+     * The method renders the order template, displaying the order details, order items, and the form.
+     *
+     * @param Request $request The HTTP request instance.
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     *
+     * @return Response The rendered HTML for the order page.
+     */
     #[Route('/create', name: 'create', methods: ['GET', 'POST'])]
     public function create(Request $request, EntityManagerInterface $em): Response
     {
@@ -143,7 +181,7 @@ class OrderController extends AbstractController
 
         $em->remove($order);
         $em->flush();
-        $this->addFlash('success', 'Order removed');
+        $this->addFlash('success', 'Commande supprimer');
         return $this->redirectToRoute('orders.user');
     }
 
@@ -169,7 +207,7 @@ class OrderController extends AbstractController
             ]);
         }
 
-        $this->addFlash('success', 'Item removed');
+        $this->addFlash('success', 'Article supprimer');
 
         return $this->redirectToRoute('orders.user');
     }

@@ -39,7 +39,7 @@
                                     </form>
                                 {% endif %}
                                 {% if order.status == 'delivered' %}
-                                    <span class="text-success text-wrap">Delivered</span>
+                                    <span class="text-success text-wrap">Livré</span>
                                 {% endif %}
                                 {% if  order.status == 'pending' %}
                                     <form action="{{ path('orders.remove', {id : order.id}) }}" method="post"

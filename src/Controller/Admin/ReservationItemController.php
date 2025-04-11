@@ -16,6 +16,12 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Controller handling reservation item management for administrators.
+ *
+ * Provides functionality to view reservation items associated with a reservation
+ * and to remove a reservation item while performing associated updates to related entities and sending notifications.
+ */
 #[IsGranted("ROLE_ADMIN")]
 #[Route('/admin/reservations/items', name: 'admin.reservation.items.')]
 class ReservationItemController extends AbstractController
@@ -30,6 +36,26 @@ class ReservationItemController extends AbstractController
         ]);
     }
 
+    /**
+     * Handles the removal of a reservation item.
+     *
+     * If the reservation item is removed and no more items are left in the reservation,
+     * the reservation is deleted, and an email is sent to notify the user about the cancellation.
+     * Otherwise, the reservation is updated, and a notification email is sent
+     * to the user indicating the modification of the reservation.
+     *
+     * A flash message is displayed upon successful removal of the reservation item.
+     *
+     * If the form is not valid or the request method is not allowed, the user is redirected
+     * to a template where they can interact further with the form or reservation data.
+     *
+     * @param ReservationItem $reservationItem The specific reservation item to be removed.
+     * @param Request $request The HTTP request object.
+     * @param EntityManagerInterface $em The entity manager for database operations.
+     * @param MailerInterface $mailer The mailer service for sending notification emails.
+     *
+     * @return Response The HTTP response rendering the appropriate template or redirecting the user.
+     */
     #[Route('/{id}/refused', name: 'refused', methods: ['GET', 'POST'])]
     public function removeReservationItem(ReservationItem $reservationItem,
                                           Request $request,

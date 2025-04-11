@@ -14,6 +14,9 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Controller for managing categories in the administration panel.
+ */
 #[isGranted("ROLE_ADMIN")]
 #[Route('/admin/categories', name: 'admin.categories.')]
 class CategoryController extends AbstractController

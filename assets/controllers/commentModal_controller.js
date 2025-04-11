@@ -13,11 +13,19 @@ export default class extends Controller {
         let currentId = ''
         let commentValidate = ''
 
+
+        /**
+         * A DOM element representing the component or element with the ID 'showModal'.
+         * Typically used to reference a modal dialog or similar UI component.
+         *
+         * @type {HTMLElement | null}
+         */
         const modalShow = document.getElementById('showModal')
         modalShow.addEventListener('hidden.bs.modal', () => {
             const buttonValidate = document.querySelector('#modalValidateBtn')
             buttonValidate.removeAttribute('disabled')
         })
+
 
         document.querySelectorAll('.open-modal-show').forEach(button => {
             button.addEventListener('click', () => {
@@ -44,6 +52,12 @@ export default class extends Controller {
             })
         })
 
+
+        /**
+         * References the 'Delete' button element within the modal dialog.
+         * This button is typically used to trigger the deletion functionality
+         * within the application when interacting with a modal.
+         */
         const buttonDelete = document.querySelector('#modalDeleteBtn')
         buttonDelete.addEventListener('click', () => {
             if (currentId !== '') {
@@ -60,6 +74,12 @@ export default class extends Controller {
             }
         })
 
+
+        /**
+         * A reference to the HTML button element with the ID 'modalValidateBtn'.
+         * This variable is used to represent and interact with the validation button element
+         * available in the document, typically associated with modal operations.
+         */
         const buttonValidate = document.querySelector('#modalValidateBtn')
         buttonValidate.addEventListener('click', () => {
             if (currentId !== '') {

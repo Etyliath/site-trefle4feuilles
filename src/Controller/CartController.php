@@ -13,6 +13,10 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * This controller manages the user's shopping cart and related actions such as
+ * viewing the cart, adding an item, removing an item, and clearing the cart.
+ */
 #[isGranted("ROLE_USER")]
 #[Route('/cart', name: 'cart.')]
 class CartController extends AbstractController

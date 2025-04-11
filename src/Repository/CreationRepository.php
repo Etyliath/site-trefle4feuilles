@@ -42,6 +42,16 @@ class CreationRepository extends ServiceEntityRepository
             6
         );
     }
+
+    /**
+     * Retrieves a paginated collection of creations filtered by optional name and category criteria.
+     *
+     * @param int $page The current page number for pagination.
+     * @param string|null $name An optional filter for creation name (supports partial match).
+     * @param string|null $category An optional filter for the category of creations.
+     *
+     * @return PaginationInterface Returns a paginated result set of creations based on the applied filters.
+     */
     public function paginatedCreationsByFilters(int $page, string|null $name, string|null $category): PaginationInterface
     {
         $qb = $this->createQueryBuilder('c');

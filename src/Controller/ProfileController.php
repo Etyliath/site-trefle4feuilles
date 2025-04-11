@@ -13,10 +13,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Controller responsible for user profile management.
+ */
 #[Route('/admin/profile', name: 'profile.')]
 class ProfileController extends AbstractController
 {
 
+    /**
+     * Handles the profile edit functionality for the logged-in user.
+     * Validates and updates the user's information, including password if provided.
+     *
+     * @param Request $request The HTTP request instance.
+     * @param EntityManagerInterface $manager The entity manager for database operations.
+     * @param UserPasswordHasherInterface $hasher The service used to hash the user's password.
+     *
+     * @return Response Renders the profile edit form or redirects upon successful submission.
+     */
     #[Route('/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function editProfile(
         Request                     $request,

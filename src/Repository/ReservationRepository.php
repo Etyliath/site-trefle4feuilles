@@ -29,6 +29,16 @@ class ReservationRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * Retrieves a paginated list of reservation filters based on the given parameters.
+     *
+     * @param int $page The current page number for pagination.
+     * @param int|null $reservation The specific reservation ID to filter by, or null for no filtering.
+     * @param string|null $name The name or email of the user to filter by, or null for no filtering.
+     * @param string|null $status The status of the reservation to filter by, or null for no filtering.
+     *
+     * @return PaginationInterface|null A paginated collection of reservation records, or null if no results are found.
+     */
     public function paginatedReservationFilters(int $page, int|null $reservation, string|null $name, string|null $status): ?PaginationInterface
     {
         $qb = $this->createQueryBuilder('r');
