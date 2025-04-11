@@ -12,6 +12,9 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
+/**
+ * Controller used to manage the administrative dashboard for users with "ROLE_ADMIN".
+ */
 #[isGranted("ROLE_ADMIN")]
 #[Route('/admin/dashboard', name: 'admin.dashboard.')]
 class DashboardController extends AbstractController

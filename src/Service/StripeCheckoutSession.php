@@ -4,8 +4,12 @@ namespace App\Service;
 
 use App\Entity\User;
 use Stripe\Checkout\Session;
+use Stripe\Exception\ApiErrorException;
 use Stripe\Stripe;
 
+/**
+ * Handles the creation and management of Stripe Checkout sessions.
+ */
 class StripeCheckoutSession
 {
 
@@ -15,6 +19,17 @@ class StripeCheckoutSession
         Stripe::setApiVersion('2024-09-30.acacia');
     }
 
+    /**
+     * Initiates a payment session using the provided order and user data.
+     *
+     * @param array $data The data related to the order items, including pricing and names.
+     * @param User|null $user The user initiating the payment, null if not authenticated.
+     * @param int $orderId The identifier of the order being processed.
+     * @param array $delivery The delivery details including address, city, and postal code.
+     *
+     * @return Session Returns the created payment session.
+     * @throws ApiErrorException
+     */
     public function startPayment(array $data, ?User $user, int $orderId, array $delivery): Session
     {
         return Session::create([

@@ -19,6 +19,16 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Turbo\TurboBundle;
 
+/**
+ * Controller for handling reservation-related operations.
+ *
+ * This controller provides endpoints for managing reservations, including
+ * creating, viewing, updating, finalizing, and removing reservations, as well
+ * as managing reservation items. Additionally, it supports specific actions
+ * like showing reservations by user and handling carts.
+ *
+ * @IsGranted("ROLE_USER") Users must have the ROLE_USER to access routes in this controller.
+ */
 #[IsGranted("ROLE_USER")]
 #[Route('/reservations', name: 'reservations.')]
 class ReservationController extends AbstractController
@@ -110,12 +120,12 @@ class ReservationController extends AbstractController
             $reservation->setStatus('pending');
             $em->persist($reservation);
             $em->flush();
-            $message = 'Reservation created';
+            $message = 'La réservation a été créé';
         } else {
             $reservation->setUpdatedAt(new \DateTimeImmutable());
             $em->persist($reservation);
             $em->flush();
-            $message = 'Reservation updated';
+            $message = 'La réservation a été modifié';
         }
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
@@ -135,7 +145,7 @@ class ReservationController extends AbstractController
                     'reservationItems' => $reservationItemsMail
                 ]);;
             $mailer->send($mail);
-            $message = 'Reservation send';
+            $message = 'Le mail de réservation a été envoyé';
         }
 
         foreach ($cart as $item) {
@@ -170,7 +180,7 @@ class ReservationController extends AbstractController
         }
         $em->remove($reservation);
         $em->flush();
-        $this->addFlash('success', 'Reservation removed');
+        $this->addFlash('success', 'Reservation supprimer');
 
         return $this->redirectToRoute('reservations.user');
     }
@@ -196,7 +206,7 @@ class ReservationController extends AbstractController
             ]);
         }
 
-        $this->addFlash('success', 'Item removed');
+        $this->addFlash('success', 'Article supprimer');
 
         return $this->redirectToRoute('reservations.user');
     }

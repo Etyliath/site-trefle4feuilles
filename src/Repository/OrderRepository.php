@@ -29,6 +29,16 @@ class OrderRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * Retrieves paginated order filters based on the specified criteria.
+     *
+     * @param int $page The current page number.
+     * @param int|null $order The ID of a specific order to filter by.
+     * @param string|null $name The name or email of the user to filter orders by.
+     * @param string|null $status The status of the orders to filter by.
+     *
+     * @return PaginationInterface Paginated result set of orders matching the criteria.
+     */
     public function paginatedOrderFilters(int $page, int|null $order, string|null $name, string|null $status): PaginationInterface
     {
         $qb = $this->createQueryBuilder('o');

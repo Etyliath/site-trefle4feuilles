@@ -15,6 +15,11 @@ use Symfony\Component\Routing\Requirement\Requirement;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\UX\Turbo\TurboBundle;
 
+/**
+ * Controller for managing creations in the admin panel.
+ *
+ * All routes in this controller require the ROLE_ADMIN role.
+ */
 #[isGranted("ROLE_ADMIN")]
 #[Route('/admin/creations', name: 'admin.creations.')]
 class CreationController extends AbstractController
